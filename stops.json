@@ -14,7 +14,8 @@
       "id": "highlights",
       "name": "Highlights Tour",
       "description": "Academics, student life, dining, and wellness — no housing stops.",
-      "routeUrl": "PASTE_HIGHLIGHTS_WALKING_ROUTE_URL_HERE",
+      "routeUrl": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Student+Services+Building+SFSU&destination=Mashouf+Wellness+Center+SFSU&waypoints=Ethnic+Studies+and+Psychology+Building+SFSU|Burk+Hall+SFSU|Gymnasium+SFSU|Thornton+Hall+SFSU|Hensill+Hall+SFSU|Science+and+Engineering+Innovation+Center+SFSU|College+of+Health+and+Social+Sciences+SFSU|Lam+Family+College+of+Business+SFSU|Administration+Building+SFSU|J+Paul+Leonard+Library+SFSU|Quad+SFSU|Cesar+Chavez+Student+Center+SFSU|Creative+Arts+Building+SFSU|Fine+Arts+Building+SFSU|Marcus+Hall+SFSU|Humanities+Building+SFSU|City+Eats+Dining+Center+SFSU|Gator+Health+Center+SFSU
+",
       "stops": [
         {
           "id": "student-services",
@@ -202,7 +203,8 @@
       "id": "full",
       "name": "Full Tour (Includes Housing)",
       "description": "Everything in Highlights + residence halls and apartment-style housing.",
-      "routeUrl": "PASTE_FULL_WALKING_ROUTE_URL_HERE",
+      "routeUrl": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Student+Services+Building+SFSU&destination=University+Park+South+SFSU&waypoints=Ethnic+Studies+and+Psychology+Building+SFSU|Burk+Hall+SFSU|Gymnasium+SFSU|Thornton+Hall+SFSU|Hensill+Hall+SFSU|Science+and+Engineering+Innovation+Center+SFSU|College+of+Health+and+Social+Sciences+SFSU|Lam+Family+College+of+Business+SFSU|Administration+Building+SFSU|J+Paul+Leonard+Library+SFSU|Quad+SFSU|Cesar+Chavez+Student+Center+SFSU|Creative+Arts+Building+SFSU|Fine+Arts+Building+SFSU|Marcus+Hall+SFSU|Humanities+Building+SFSU|City+Eats+Dining+Center+SFSU|Gator+Health+Center+SFSU|Mashouf+Wellness+Center+SFSU|Towers+at+Centennial+Square+SFSU|Village+at+Centennial+Square+SFSU|Manzanita+Square+SFSU|University+Park+North+SFSU
+",
       "stops": [
         { "id": "student-services", "order": 1, "title": "Student Services Building", "subtitle": "One Stop + key student support", "description": "Home to One Stop Student Services for financial aid, billing, transcripts, registration, and enrollment questions. Also includes EOP, DPRC, Counseling & Psychological Services, and other essential support offices.", "address": "Student Services Building, San Francisco State University", "photo": "assets/photos/student-services.jpg" },
         { "id": "ethnic-studies-psychology", "order": 2, "title": "Ethnic Studies & Psychology Building", "subtitle": "Equity, identity, social justice", "description": "Houses the College of Ethnic Studies — the first of its kind in the nation — and the Psychology Department. Programs explore identity, equity, social justice, and human behavior.", "address": "Ethnic Studies & Psychology Building, San Francisco State University", "photo": "assets/photos/ethnic-studies.jpg" },
