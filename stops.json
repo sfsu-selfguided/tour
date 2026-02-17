@@ -1,0 +1,283 @@
+{
+  "tourName": "SFSU Self-Guided Campus Tour",
+  "tourSubtitle": "Prospective Students & Families",
+  "tourDescription": "Welcome! Explore campus at your own pace. Tap “Navigate” for each stop or open the full route in Google Maps.",
+  "routeUrl": "",
+  "stops": [
+    {
+      "id": "1-student-services",
+      "order": 1,
+      "title": "Student Services",
+      "subtitle": "One Stop Student Services Center",
+      "description": "Home of the One Stop Student Services Center. Find out the status of your admissions or financial aid applications, order transcripts and more. This building houses bursar/cashier services, DPRC, Counseling and Psychological Services, Career Services and Leadership Development, OneCard services, the Registrar’s Office, Undergraduate Admissions and Recruitment, and Veterans Services.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-01.jpg"
+    },
+    {
+      "id": "2-burk-hall",
+      "order": 2,
+      "title": "Burk Hall",
+      "subtitle": "Education, Nursing, Vista Room",
+      "description": "Home to the Graduate College of Education, Family/Interiors/Nutrition/Apparel, and the School of Nursing. The student-run Vista Room restaurant is on the fourth floor.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-02.jpg"
+    },
+    {
+      "id": "3-student-health-center",
+      "order": 3,
+      "title": "Student Health Center",
+      "subtitle": "Medical clinic",
+      "description": "Outpatient care for illness and injury, lab tests and X-rays, family planning, counseling and more. The student health fee covers most services.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-03.jpg"
+    },
+    {
+      "id": "4-ethnic-studies-psychology",
+      "order": 4,
+      "title": "Ethnic Studies & Psychology",
+      "subtitle": "College of Ethnic Studies",
+      "description": "Home to the College of Ethnic Studies: Africana Studies, American Indian Studies, Asian American Studies, Latina/Latino Studies and Race and Resistance Studies. The Psychology Department is on the third floor.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-04.jpg"
+    },
+    {
+      "id": "5-gymnasium",
+      "order": 5,
+      "title": "Gymnasium",
+      "subtitle": "Athletics & Kinesiology",
+      "description": "Home to the Athletics and Kinesiology departments. Features two gyms, an indoor pool, weight room and dance studios.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-05.jpg"
+    },
+    {
+      "id": "6-thornton-hall",
+      "order": 6,
+      "title": "Thornton Hall",
+      "subtitle": "College of Science & Engineering",
+      "description": "Home to the College of Science & Engineering. Check out the fourth-floor planetarium and the roof observatory.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-06.jpg"
+    },
+    {
+      "id": "7-hensill-hall",
+      "order": 7,
+      "title": "Hensill Hall",
+      "subtitle": "Biology",
+      "description": "The Department of Biology and many of its programs, services and labs are here.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-07.jpg"
+    },
+    {
+      "id": "8-science",
+      "order": 8,
+      "title": "Science",
+      "subtitle": "Engineering & community partnerships",
+      "description": "The School of Engineering and the Marian Wright Edelman Institute are located here, where students and scholars collaborate with community partners to address the needs of children, youth and families.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-08.jpg"
+    },
+    {
+      "id": "9-hss",
+      "order": 9,
+      "title": "HSS",
+      "subtitle": "Health & Social Sciences",
+      "description": "Main offices of the College of Health & Social Sciences, plus ICCE, TRiO Student Support Services, CARP and Metro College Success Program.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-09.jpg"
+    },
+    {
+      "id": "10-business",
+      "order": 10,
+      "title": "Business",
+      "subtitle": "Lam Family College of Business",
+      "description": "Home of the Lam Family College of Business. Students have access to resources including Metro Academies advisors, the Career Services and Professional Development Center and a computer lab.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-10.jpg"
+    },
+    {
+      "id": "11-administration",
+      "order": 11,
+      "title": "Administration",
+      "subtitle": "Campus administrative offices",
+      "description": "Administrative and business offices and some student/academic services including Undergraduate Advising, Bursar service station, ITS, Graduate Studies, Human Resources, the President’s Office and Undergraduate Education.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-11.jpg"
+    },
+    {
+      "id": "12-j-paul-leonard-library",
+      "order": 12,
+      "title": "J. Paul Leonard Library",
+      "subtitle": "Teaching & learning center",
+      "description": "A state-of-the-art teaching and learning center housing Special Collections & Archives, Sutro Library, Academic Technology, and the Center for Equity and Excellence in Teaching and Learning. Includes study/collaboration spaces, tech support, reservable rooms and a Digital Media Studio/MakerSpace.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-12.jpg"
+    },
+    {
+      "id": "13-cesar-chavez-student-center",
+      "order": 13,
+      "title": "Cesar Chavez Student Center",
+      "subtitle": "Bookstore, food, murals",
+      "description": "Known for its many murals. Houses the SF State Bookstore, restaurants, lounges, a multicultural center, pub, student art gallery and ATMs. Home to Associated Students. An Information Desk is near the entrance closest to the Quad.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-13.jpg"
+    },
+    {
+      "id": "14-garden-of-remembrance",
+      "order": 14,
+      "title": "Garden of Remembrance",
+      "subtitle": "Historic memorial",
+      "description": "Honors Japanese Americans — including 19 SF State students — interned during World War II.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-14.jpg"
+    },
+    {
+      "id": "15-fine-arts",
+      "order": 15,
+      "title": "Fine Arts",
+      "subtitle": "Film, design, art studios",
+      "description": "Features a film soundstage, animation studio, recording/mixing rooms, editing labs, digital media labs, and collections preservation facility. Offices for Art, Cinema, Design and Anthropology. Screenings in August Coppola Theater. Fine Arts Gallery and Global Museum on the second floor.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-15.jpg"
+    },
+    {
+      "id": "16-creative-arts",
+      "order": 16,
+      "title": "Creative Arts",
+      "subtitle": "Music, Theatre & Dance",
+      "description": "Home to the School of Music and the School of Theatre and Dance. Performances in McKenna Theatre, Knuth Hall, Studio Theatre, Little Theatre and more. Multiple set, costume and prop construction labs.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-16.jpg"
+    },
+    {
+      "id": "17-humanities",
+      "order": 17,
+      "title": "Humanities",
+      "subtitle": "Liberal & Creative Arts",
+      "description": "Houses the College of Liberal & Creative Arts and most of its departments, plus the Poetry Center, American Poetry Archives and the American Language Institute.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-17.jpg"
+    },
+    {
+      "id": "18-village-at-centennial-square",
+      "order": 18,
+      "title": "Village at Centennial Square",
+      "subtitle": "Apartment-style community",
+      "description": "Apartment-style community with eating options, a convenience store and different living communities. Furnished two- and three-bedroom apartments available for first-time freshmen.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-18.jpg"
+    },
+    {
+      "id": "19-mary-park-mary-ward",
+      "order": 19,
+      "title": "Mary Park / Mary Ward Residence Halls",
+      "subtitle": "Traditional residence halls",
+      "description": "Traditional residence hall communities for freshmen with resources, support and programs designed to facilitate successful transition to the campus community.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-19.jpg"
+    },
+    {
+      "id": "20-towers-at-centennial-square",
+      "order": 20,
+      "title": "Towers at Centennial Square",
+      "subtitle": "Suite-style housing",
+      "description": "Suite-style housing option for freshmen with furnished one- and two-bedroom units and Living Learning Communities. Adjacent Towers Jr. Suites offer semi suite-style housing with themed living communities.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-20.jpg"
+    },
+    {
+      "id": "21-mashouf-wellness-center",
+      "order": 21,
+      "title": "Mashouf Wellness Center",
+      "subtitle": "Recreation & wellness",
+      "description": "Student-driven facility with climbing wall, exercise studios, gym spaces, indoor pool with spa/sauna, jogging track, racquetball/squash courts and more. Offers programs like outdoor trips, workshops, personal training, intramurals and group fitness.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-21.jpg"
+    },
+    {
+      "id": "22-marcus-hall",
+      "order": 22,
+      "title": "Marcus Hall",
+      "subtitle": "BECA",
+      "description": "Home of Broadcast and Electronic Communication Arts (BECA) with cutting-edge multimedia labs and classrooms.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-22.jpg"
+    },
+    {
+      "id": "23-manzanita-square",
+      "order": 23,
+      "title": "Manzanita Square",
+      "subtitle": "Residential + retail",
+      "description": "Steps from campus, includes residential apartments, outdoor courtyard, retail, student support spaces and laundry facilities.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-23.jpg"
+    },
+    {
+      "id": "24-university-park-north",
+      "order": 24,
+      "title": "University Park North",
+      "subtitle": "Apartment living",
+      "description": "Provides independent apartment living for transfer students, returning residents and students with families. Conveniently located next to campus with a variety of housing options.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-24.jpg"
+    },
+    {
+      "id": "25-university-park-south",
+      "order": 25,
+      "title": "University Park South",
+      "subtitle": "Apartment living",
+      "description": "Provides independent apartment living for transfer students, returning residents and students with families. Conveniently located next to campus with a variety of housing options.",
+      "address": "",
+      "lat": null,
+      "lng": null,
+      "photo": "assets/photos/stop-25.jpg"
+    }
+  ]
+}
