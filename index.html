@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#4B2E83" />
+  <meta name="description" content="Self-guided campus tour for prospective students and families." />
+
+  <title>SFSU Self-Guided Tour</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="brand">
+        <div class="brand__title">SFSU Self-Guided Tour</div>
+        <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
+      </div>
+
+      <div class="topbar__actions">
+        <button class="btn btn--ghost" id="installBtn" hidden aria-label="Install app">
+          Install
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 class="hero__title" id="tourTitle">Campus Tour</h1>
+      <p class="hero__desc" id="tourDesc">
+        Explore stops at your own pace. Tap “Navigate” at any stop, or open the full route in Google Maps.
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
+          Open Full Route in Google Maps
+        </a>
+        <button class="btn btn--secondary" id="shareBtn" type="button">
+          Share
+        </button>
+      </div>
+
+      <div class="status" id="statusBar" aria-live="polite"></div>
+    </section>
+
+    <section class="controls">
+      <div class="search">
+        <input id="searchInput" type="search" placeholder="Search stops (e.g., library, gym, admissions)…" />
+      </div>
+
+      <div class="toggles">
+        <label class="toggle">
+          <input type="checkbox" id="hideVisitedToggle" />
+          <span>Hide visited</span>
+        </label>
+        <button class="btn btn--ghost" id="resetVisitedBtn" type="button">
+          Reset visited
+        </button>
+      </div>
+    </section>
+
+    <section class="grid" id="stopsGrid" aria-label="Tour stops"></section>
+
+    <footer class="footer">
+      <div>
+        <span class="dot" id="onlineDot" title="Network status"></span>
+        <span id="onlineText">Checking connection…</span>
+      </div>
+      <div class="footer__right">
+        <a class="link" href="#" id="reloadBtn">Reload</a>
+      </div>
+    </footer>
+  </main>
+
+  <template id="stopCardTemplate">
+    <article class="card">
+      <div class="card__media">
+        <img class="card__img" alt="" loading="lazy" />
+        <div class="card__badge" hidden>Visited</div>
+      </div>
+
+      <div class="card__body">
+        <div class="card__top">
+          <h2 class="card__title"></h2>
+          <p class="card__subtitle"></p>
+        </div>
+
+        <p class="card__desc"></p>
+
+        <div class="card__actions">
+          <a class="btn btn--secondary card__nav" href="#" target="_blank" rel="noopener">Navigate</a>
+          <button class="btn btn--ghost card__visitedBtn" type="button">Mark visited</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
