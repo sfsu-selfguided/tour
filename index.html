@@ -18,14 +18,17 @@
 <body>
   <header class="topbar">
     <div class="topbar__inner topbar__inner--stacked">
-      <img class="brand__logo" src="logo.png" alt="San Francisco State University logo" loading="eager" />
+      <div class="brand__logoWrap" aria-hidden="false">
+        <img class="brand__logo brand__logo--light" src="logo-purple.png" alt="San Francisco State University logo" loading="eager" />
+        <img class="brand__logo brand__logo--dark" src="logo-white.png" alt="San Francisco State University logo" loading="eager" />
+      </div>
 
       <div class="brand brand--stacked">
         <div class="brand__title">SFSU Self-Guided Campus Tour</div>
         <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
 
         <button class="btn btn--ghost themeToggle" id="themeToggle" type="button" aria-label="Toggle light/dark mode">
-          🌙 Dark
+          🌙 Dark mode
         </button>
       </div>
     </div>
