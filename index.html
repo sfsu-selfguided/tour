@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#4B2E83" />
-  <meta name="description" content="Self-guided campus tour for prospective students and families." />
+  <meta name="description" content="Outdoor-only self-guided campus tour for prospective students and families at San Francisco State University." />
 
   <title>SFSU Self-Guided Campus Tour</title>
 
@@ -18,13 +18,13 @@
 <body>
   <header class="topbar">
     <div class="topbar__inner topbar__inner--stacked">
-      <div class="brand__logoWrap" aria-hidden="false">
+      <div class="brand__logoWrap">
         <img class="brand__logo brand__logo--light" src="logo-purple.png" alt="San Francisco State University logo" loading="eager" />
         <img class="brand__logo brand__logo--dark" src="logo-white.png" alt="San Francisco State University logo" loading="eager" />
       </div>
 
       <div class="brand brand--stacked">
-        <div class="brand__title">SFSU Self-Guided Campus Tour</div>
+        <div class="brand__title">SFSU Self-Guided<br/>Campus Tour</div>
         <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
 
         <button class="btn btn--ghost themeToggle" id="themeToggle" type="button" aria-label="Toggle light/dark mode">
@@ -40,10 +40,8 @@
 
       <p class="hero__desc" id="tourDesc">
         <strong>Welcome to San Francisco State University!</strong><br /><br />
-        We’re excited to have you explore campus at your own pace. This is an
-        <strong>outdoor, self-guided walking tour</strong> designed for prospective students and families.
-        <br /><br />
-        Tap <strong>Navigate</strong> for any stop, or open the full route in Google Maps.
+        This is an <strong>outdoor-only</strong>, self-guided walking tour for prospective students and families.
+        Tap <strong>Navigate</strong> at any stop, or open the full route in Google Maps.
       </p>
 
       <div class="hero__cta hero__cta--stack">
@@ -55,16 +53,16 @@
         </label>
 
         <div class="hero__buttons">
-  <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
-    Open Full Route in Google Maps
-  </a>
-</div>
+          <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
+            Open Full Route in Google Maps
+          </a>
+        </div>
       </div>
 
       <div class="status" id="statusBar" aria-live="polite"></div>
     </section>
 
-    <!-- Intro callout mounts here (Emergency phones) -->
+    <!-- Emergency phones callout mounts here -->
     <section id="introCallout"></section>
 
     <section class="controls">
@@ -84,6 +82,9 @@
     </section>
 
     <section class="grid" id="stopsGrid" aria-label="Tour stops"></section>
+
+    <!-- Hidden gators (end-of-tour) mounts here -->
+    <section id="outroCallout"></section>
 
     <footer class="footer">
       <div class="footer__left">
