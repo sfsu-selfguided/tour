@@ -28,7 +28,6 @@ html[data-theme="light"] {
 }
 
 * { box-sizing: border-box; }
-
 html, body { height: 100%; }
 
 body {
@@ -71,7 +70,6 @@ html[data-theme="light"] .topbar {
   text-align: center;
 }
 
-/* Logo swap */
 .brand__logoWrap {
   display: flex;
   justify-content: center;
@@ -80,25 +78,24 @@ html[data-theme="light"] .topbar {
 }
 
 .brand__logo {
-  height: 86px;   /* bigger + more official */
+  height: 92px;
   width: auto;
   display: block;
   filter: drop-shadow(0 10px 26px rgba(0,0,0,0.28));
 }
 
-/* Default = dark mode => show white logo */
+/* Default = dark => show white logo */
 .brand__logo--light { display: none; }
 .brand__logo--dark  { display: block; }
 
 html[data-theme="light"] .brand__logo--light { display: block; }
 html[data-theme="light"] .brand__logo--dark  { display: none; }
 
-/* Brand text */
 .brand__title {
   font-weight: 900;
   letter-spacing: 0.2px;
   font-size: 19px;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .brand__subtitle {
@@ -148,6 +145,7 @@ html[data-theme="light"] .hero {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Tour picker */
@@ -253,6 +251,36 @@ html[data-theme="light"] .card {
   display: block;
 }
 
+/* Overlay for callouts (Emergency phones) */
+.mediaOverlay {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.62);
+  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(8px);
+}
+
+.mediaOverlay__title {
+  margin: 0;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.mediaOverlay__text {
+  margin: 6px 0 0;
+  color: rgba(255,255,255,0.86);
+  line-height: 1.35;
+  font-size: 13px;
+}
+
+html[data-theme="light"] .mediaOverlay {
+  background: rgba(0,0,0,0.55);
+}
+
 .card__badge {
   position: absolute;
   top: 10px;
@@ -328,7 +356,6 @@ html[data-theme="light"] .card {
   text-decoration: none;
   border-bottom: 1px dashed rgba(255,255,255,0.25);
 }
-
 html[data-theme="light"] .link { border-bottom-color: rgba(0,0,0,0.25); }
 
 /* Status + Footer */
@@ -362,5 +389,5 @@ html[data-theme="light"] .link { border-bottom-color: rgba(0,0,0,0.25); }
 @media (min-width: 760px) {
   .grid { grid-template-columns: 1fr 1fr; }
   .hero__title { font-size: 30px; }
-  .brand__logo { height: 96px; }
+  .brand__logo { height: 102px; }
 }
