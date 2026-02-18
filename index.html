@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#4B2E83" />
   <meta name="description" content="Self-guided campus tour for prospective students and families." />
 
-  <title>SFSU Self-Guided Tour</title>
+  <title>SFSU Self-Guided Campus Tour</title>
 
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="assets/icons/icon-192.png" />
@@ -17,48 +17,55 @@
 
 <body>
   <header class="topbar">
-    <div class="topbar__inner">
-      <div class="brand">
-        <div class="brand__title">SFSU Self-Guided Tour</div>
-        <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
-      </div>
+    <div class="topbar__inner topbar__inner--stacked">
+      <img class="brand__logo" src="logo.png" alt="San Francisco State University logo" loading="eager" />
 
-      
+      <div class="brand brand--stacked">
+        <div class="brand__title">SFSU Self-Guided Campus Tour</div>
+        <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
+
+        <button class="btn btn--ghost themeToggle" id="themeToggle" type="button" aria-label="Toggle light/dark mode">
+          🌙 Dark
+        </button>
+      </div>
     </div>
   </header>
 
   <main class="container">
     <section class="hero">
-      <h1 class="hero__title" id="tourTitle">Campus Tour</h1>
+      <h1 class="hero__title" id="tourTitle">Ready to begin your tour?</h1>
 
       <p class="hero__desc" id="tourDesc">
-        Explore stops at your own pace. Tap “Navigate” at any stop, or open the full route in Google Maps.
+        <strong>Welcome to San Francisco State University!</strong><br /><br />
+        We’re excited to have you explore campus at your own pace. This is an
+        <strong>outdoor, self-guided walking tour</strong> designed for prospective students and families.
+        <br /><br />
+        Tap <strong>Navigate</strong> for any stop, or open the full route in Google Maps.
       </p>
 
-      <!-- Tour selector (options injected by app.js) -->
-      <div class="hero__cta" style="margin-bottom:12px;">
-        <label style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-          <span style="color:var(--muted); font-size:14px;">Tour:</span>
-          <select id="tourSelect" class="btn btn--ghost" style="padding:0 12px;">
-            <!-- injected -->
+      <div class="hero__cta hero__cta--stack">
+        <label class="tourPicker" aria-label="Choose a tour option">
+          <span class="tourPicker__label">Choose a tour:</span>
+          <select id="tourSelect" class="select">
+            <!-- options injected by app.js -->
           </select>
         </label>
-      </div>
 
-      <!-- Safety callout (rendered by app.js if present in stops.json) -->
-      <section id="introCallout"></section>
-
-      <div class="hero__cta">
-        <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
-          Open Full Route in Google Maps
-        </a>
-        <button class="btn btn--secondary" id="shareBtn" type="button">
-          Share
-        </button>
+        <div class="hero__buttons">
+          <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
+            Open Full Route in Google Maps
+          </a>
+          <button class="btn btn--secondary" id="shareBtn" type="button">
+            Share
+          </button>
+        </div>
       </div>
 
       <div class="status" id="statusBar" aria-live="polite"></div>
     </section>
+
+    <!-- Intro callout mounts here (Emergency phones) -->
+    <section id="introCallout"></section>
 
     <section class="controls">
       <div class="search">
@@ -79,7 +86,7 @@
     <section class="grid" id="stopsGrid" aria-label="Tour stops"></section>
 
     <footer class="footer">
-      <div>
+      <div class="footer__left">
         <span class="dot" id="onlineDot" title="Network status"></span>
         <span id="onlineText">Checking connection…</span>
       </div>
