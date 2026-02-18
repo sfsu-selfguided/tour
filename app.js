@@ -267,7 +267,7 @@ function setHeaderFromTour(_data, tour) {
 async function main() {
   setupThemeToggle();
   setOnlineUI();
-  setupShare();
+
 
   $("#reloadBtn")?.addEventListener("click", (e) => {
     e.preventDefault();
