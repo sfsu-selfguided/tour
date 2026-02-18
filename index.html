@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#4B2E83" />
-  <meta name="description" content="Outdoor-only self-guided campus tour for prospective students and families at San Francisco State University." />
+  <meta name="description" content="Self-guided campus tour for prospective students and families." />
 
   <title>SFSU Self-Guided Campus Tour</title>
 
@@ -17,17 +17,24 @@
 
 <body>
   <header class="topbar">
-    <div class="topbar__inner topbar__inner--stacked">
-      <div class="brand__logoWrap">
-        <img class="brand__logo brand__logo--light" src="logo-purple.png" alt="San Francisco State University logo" loading="eager" />
-        <img class="brand__logo brand__logo--dark" src="logo-white.png" alt="San Francisco State University logo" loading="eager" />
+    <div class="topbar__inner">
+      <div class="brand">
+        <img
+          class="brand__logo"
+          id="brandLogo"
+          src="logo-white.png"
+          alt="San Francisco State University logo"
+          loading="eager"
+        />
+
+        <div class="brand__text">
+          <div class="brand__title">SFSU Self-Guided<br/>Campus Tour</div>
+          <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
+        </div>
       </div>
 
-      <div class="brand brand--stacked">
-        <div class="brand__title">SFSU Self-Guided<br/>Campus Tour</div>
-        <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
-
-        <button class="btn btn--ghost themeToggle" id="themeToggle" type="button" aria-label="Toggle light/dark mode">
+      <div class="topbar__actions">
+        <button class="btn btn--ghost" id="themeToggle" type="button" aria-label="Toggle theme">
           🌙 Dark mode
         </button>
       </div>
@@ -37,33 +44,28 @@
   <main class="container">
     <section class="hero">
       <h1 class="hero__title" id="tourTitle">Ready to begin your tour?</h1>
-
       <p class="hero__desc" id="tourDesc">
-        <strong>Welcome to San Francisco State University!</strong><br /><br />
-        This is an <strong>outdoor-only</strong>, self-guided walking tour for prospective students and families.
-        Tap <strong>Navigate</strong> at any stop, or open the full route in Google Maps.
+        Welcome to San Francisco State University! This is a self-guided, <strong>outdoor-only</strong> walking tour.
+        Tap “Navigate” at any stop, or open the full route in Google Maps.
       </p>
 
       <div class="hero__cta hero__cta--stack">
-        <label class="tourPicker" aria-label="Choose a tour option">
-          <span class="tourPicker__label">Choose a tour:</span>
+        <label class="tourPicker">
+          <span class="tourPicker__label">Tour:</span>
           <select id="tourSelect" class="select">
             <!-- options injected by app.js -->
           </select>
         </label>
 
-        <div class="hero__buttons">
-          <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
-            Open Full Route in Google Maps
-          </a>
-        </div>
+        <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
+          Open Full Route in Google Maps
+        </a>
       </div>
 
       <div class="status" id="statusBar" aria-live="polite"></div>
-    </section>
 
-    <!-- Emergency phones callout mounts here -->
-    <section id="introCallout"></section>
+      <section id="introCallout"></section>
+    </section>
 
     <section class="controls">
       <div class="search">
@@ -83,11 +85,10 @@
 
     <section class="grid" id="stopsGrid" aria-label="Tour stops"></section>
 
-    <!-- Hidden gators (end-of-tour) mounts here -->
     <section id="outroCallout"></section>
 
     <footer class="footer">
-      <div class="footer__left">
+      <div>
         <span class="dot" id="onlineDot" title="Network status"></span>
         <span id="onlineText">Checking connection…</span>
       </div>
