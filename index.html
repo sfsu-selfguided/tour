@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -20,13 +20,12 @@
     <div class="topbar__inner">
       <div class="brand">
         <img
+          id="logoImg"
           class="brand__logo"
-          id="brandLogo"
-          src="logo-white.png"
-          alt="San Francisco State University logo"
+          src="logo-purple.png"
+          alt="San Francisco State University"
           loading="eager"
         />
-
         <div class="brand__text">
           <div class="brand__title">SFSU Self-Guided<br/>Campus Tour</div>
           <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
@@ -44,15 +43,16 @@
   <main class="container">
     <section class="hero">
       <h1 class="hero__title" id="tourTitle">Ready to begin your tour?</h1>
+
       <p class="hero__desc" id="tourDesc">
         Welcome to San Francisco State University! This is a self-guided, <strong>outdoor-only</strong> walking tour.
         Tap “Navigate” at any stop, or open the full route in Google Maps.
       </p>
 
-      <div class="hero__cta hero__cta--stack">
+      <div class="hero__cta">
         <label class="tourPicker">
           <span class="tourPicker__label">Tour:</span>
-          <select id="tourSelect" class="select">
+          <select id="tourSelect" class="btn btn--ghost tourPicker__select">
             <!-- options injected by app.js -->
           </select>
         </label>
@@ -63,9 +63,9 @@
       </div>
 
       <div class="status" id="statusBar" aria-live="polite"></div>
-
-      <section id="introCallout"></section>
     </section>
+
+    <section id="introCallout"></section>
 
     <section class="controls">
       <div class="search">
