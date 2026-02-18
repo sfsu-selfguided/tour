@@ -22,7 +22,7 @@ function applyTheme(theme) {
 
   const btn = $("#themeToggle");
   if (btn) {
-    btn.textContent = t === "dark" ? "🌙 Dark" : "☀️ Light";
+    btn.textContent = t === "dark" ? "🌙 Dark mode" : "☀️ Light mode";
     btn.setAttribute("aria-label", `Theme: ${t}. Tap to toggle.`);
   }
 }
@@ -77,7 +77,6 @@ function normalize(str) {
 }
 
 function buildStopNavUrl(stop) {
-  // Prefer lat/lng if present; fallback to address/title query.
   if (typeof stop.lat === "number" && typeof stop.lng === "number") {
     return `https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`;
   }
@@ -86,7 +85,7 @@ function buildStopNavUrl(stop) {
 }
 
 /* =========
-   Intro callout (emergency phones)
+   Intro callout
    ========= */
 function renderIntroCallout(data) {
   const mount = $("#introCallout");
@@ -101,7 +100,6 @@ function renderIntroCallout(data) {
   const imgs = Array.isArray(c.images) ? c.images : [];
   const firstImg = imgs[0];
 
-  // Simple card for now (Bundle C will upgrade overlay style)
   mount.innerHTML = `
     <div class="card" style="margin-top:14px;">
       <div class="card__media" style="${firstImg ? "" : "display:none;"}">
@@ -189,7 +187,7 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
     if (subtitle) subtitle.textContent = stop.subtitle || stop.address || "";
     if (desc) desc.textContent = stop.description || "";
 
-    if (nav) nav.href = buildStopNavUrl(stop);
+    if (nav) nav.href = stop.navUrl || buildStopNavUrl(stop);
 
     if (badge) badge.hidden = !isVisited;
 
@@ -234,9 +232,7 @@ function setupShare() {
         await navigator.clipboard.writeText(window.location.href);
         setStatus("Link copied to clipboard.");
       }
-    } catch {
-      // user cancelled / not available
-    }
+    } catch {}
   });
 }
 
@@ -265,7 +261,6 @@ async function loadTourData() {
 function getToursFromData(data) {
   if (Array.isArray(data.tours) && data.tours.length) return data.tours;
 
-  // Backwards compatible old format
   if (Array.isArray(data.stops)) {
     return [
       {
@@ -280,7 +275,7 @@ function getToursFromData(data) {
   return [];
 }
 
-/* IMPORTANT: Do NOT overwrite the hero welcome copy */
+/* Do NOT overwrite the hero welcome copy */
 function setHeaderFromTour(_data, tour) {
   const metaEl = $("#tourMeta");
   if (metaEl) metaEl.textContent = tour.name || "Self-guided tour";
@@ -294,13 +289,10 @@ async function main() {
   setOnlineUI();
   setupShare();
 
-  const reloadBtn = $("#reloadBtn");
-  if (reloadBtn) {
-    reloadBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      window.location.reload();
-    });
-  }
+  $("#reloadBtn")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.reload();
+  });
 
   const visitedSet = loadVisitedSet();
 
@@ -316,7 +308,6 @@ async function main() {
     const savedTourId = localStorage.getItem(STORAGE_KEYS.activeTour);
     let activeTour = tours.find((t) => t.id === savedTourId) || tours[0];
 
-    // Populate dropdown
     if (tourSelect) {
       tourSelect.innerHTML = "";
       for (const t of tours) {
@@ -338,7 +329,6 @@ async function main() {
     function updateForTour(tour) {
       setHeaderFromTour(data, tour);
 
-      // Route button
       const routeBtn = $("#openRouteBtn");
       if (routeBtn) {
         routeBtn.href = tour.routeUrl || "https://www.google.com/maps";
@@ -369,7 +359,6 @@ async function main() {
     setStatus("Could not load tour content. Check stops.json and reload.");
   }
 
-  // SW registration (keep for offline caching)
   if ("serviceWorker" in navigator) {
     try {
       await navigator.serviceWorker.register("./service-worker.js");
