@@ -6,9 +6,9 @@ const STORAGE_KEYS = {
 };
 
 /* =========
-   Theme toggle (light/dark)
+   Theme toggle (light/dark) + logo swap
    ========= */
-const THEME_KEY = "sfsuTour.theme"; // "light" | "dark" | "system"
+const THEME_KEY = "sfsuTour.theme"; // "light" | "dark"
 
 function getSystemTheme() {
   return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -16,8 +16,14 @@ function getSystemTheme() {
     : "light";
 }
 
+function setLogoForTheme(theme) {
+  const logo = $("#brandLogo");
+  if (!logo) return;
+  logo.src = theme === "dark" ? "logo-white.png" : "logo-purple.png";
+}
+
 function applyTheme(theme) {
-  const t = theme === "system" ? getSystemTheme() : theme;
+  const t = theme || getSystemTheme();
   document.documentElement.dataset.theme = t;
 
   const btn = $("#themeToggle");
@@ -25,10 +31,12 @@ function applyTheme(theme) {
     btn.textContent = t === "dark" ? "🌙 Dark mode" : "☀️ Light mode";
     btn.setAttribute("aria-label", `Theme: ${t}. Tap to toggle.`);
   }
+
+  setLogoForTheme(t);
 }
 
 function setupThemeToggle() {
-  const saved = localStorage.getItem(THEME_KEY) || "system";
+  const saved = localStorage.getItem(THEME_KEY) || getSystemTheme();
   applyTheme(saved);
 
   const btn = $("#themeToggle");
@@ -41,10 +49,10 @@ function setupThemeToggle() {
     applyTheme(next);
   });
 
-  if (saved === "system" && window.matchMedia) {
+  // If user never set a preference, follow system changes
+  if (!localStorage.getItem(THEME_KEY) && window.matchMedia) {
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-      const now = localStorage.getItem(THEME_KEY) || "system";
-      if (now === "system") applyTheme("system");
+      if (!localStorage.getItem(THEME_KEY)) applyTheme(getSystemTheme());
     });
   }
 }
@@ -79,23 +87,23 @@ function normalize(str) {
    Navigation URL (fix multi-options)
    ========= */
 function buildStopNavUrl(stop) {
-  // 1) If stop.navUrl is provided, use it (best / most precise).
+  // 1) Use explicit navUrl if provided (best).
   if (stop && typeof stop.navUrl === "string" && stop.navUrl.trim()) {
     return stop.navUrl.trim();
   }
 
   // 2) Otherwise use lat/lng (if you add later).
-  if (typeof stop.lat === "number" && typeof stop.lng === "number") {
+  if (typeof stop?.lat === "number" && typeof stop?.lng === "number") {
     return `https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`;
   }
 
   // 3) Fallback: address/title search.
-  const q = encodeURIComponent(stop.address || stop.title || "San Francisco State University");
+  const q = encodeURIComponent(stop?.address || stop?.title || "San Francisco State University");
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
 /* =========
-   Callouts
+   Callouts (image overlay)
    ========= */
 function renderCallout(mountSelector, callout) {
   const mount = $(mountSelector);
@@ -109,7 +117,6 @@ function renderCallout(mountSelector, callout) {
   const imgs = Array.isArray(callout.images) ? callout.images : [];
   const firstImg = imgs[0];
 
-  // If image exists, put title/text OVER the image.
   const overlay = firstImg
     ? `
       <div class="mediaOverlay">
@@ -120,21 +127,33 @@ function renderCallout(mountSelector, callout) {
     : "";
 
   mount.innerHTML = `
-    <div class="card" style="margin-top:14px;">
+    <div class="card calloutCard">
       <div class="card__media" style="${firstImg ? "" : "display:none;"}">
-        ${firstImg ? `<img class="card__img" src="${firstImg}" alt="${callout.title || "Callout"}" loading="lazy" />` : ""}
+        ${
+          firstImg
+            ? `<img class="card__img" src="${firstImg}" alt="${callout.title || "Callout"}" loading="lazy" />`
+            : ""
+        }
         ${overlay}
       </div>
-      <div class="card__body" style="${firstImg ? "padding-top:12px;" : ""}">
-        ${firstImg ? "" : `<h2 class="card__title">${callout.title || ""}</h2>`}
-        ${firstImg ? "" : `<p class="card__desc" style="margin-top:10px;">${callout.text || ""}</p>`}
+      <div class="card__body">
+        ${
+          firstImg
+            ? ""
+            : `
+              <h2 class="card__title">${callout.title || ""}</h2>
+              <p class="card__desc" style="margin-top:10px;">${callout.text || ""}</p>
+            `
+        }
         ${
           callout.linkUrl
-            ? `<div class="card__actions">
-                 <a class="btn btn--secondary" href="${callout.linkUrl}" target="_blank" rel="noopener">
-                   ${callout.linkText || "Learn more"}
-                 </a>
-               </div>`
+            ? `
+              <div class="card__actions">
+                <a class="btn btn--secondary" href="${callout.linkUrl}" target="_blank" rel="noopener">
+                  ${callout.linkText || "Learn more"}
+                </a>
+              </div>
+            `
             : ""
         }
       </div>
@@ -145,7 +164,6 @@ function renderCallout(mountSelector, callout) {
 function renderIntroCallout(data) {
   renderCallout("#introCallout", data?.pageSections?.introCallout);
 }
-
 function renderOutroCallout(data) {
   renderCallout("#outroCallout", data?.pageSections?.outroCallout);
 }
@@ -267,6 +285,7 @@ async function loadTourData() {
 function getToursFromData(data) {
   if (Array.isArray(data.tours) && data.tours.length) return data.tours;
 
+  // Backward compatible legacy shape
   if (Array.isArray(data.stops)) {
     return [
       {
@@ -281,9 +300,23 @@ function getToursFromData(data) {
   return [];
 }
 
-function setHeaderFromTour(_data, tour) {
+/* =========
+   Header + route button
+   ========= */
+function setHeaderFromTour(data, tour) {
+  const titleEl = $("#tourTitle");
   const metaEl = $("#tourMeta");
-  if (metaEl) metaEl.textContent = tour.name || "Self-guided tour";
+
+  if (titleEl) titleEl.textContent = "Ready to begin your tour?";
+  if (metaEl) metaEl.textContent = tour?.name || data?.appName || "Self-guided tour";
+
+  const descEl = $("#tourDesc");
+  if (descEl) {
+    // Keep this stable so it doesn't get overwritten with tour.description
+    descEl.innerHTML =
+      `Welcome to San Francisco State University! This is a self-guided, <strong>outdoor-only</strong> walking tour.
+       Tap “Navigate” at any stop, or open the full route in Google Maps.`;
+  }
 }
 
 /* =========
@@ -348,6 +381,8 @@ async function main() {
         hideVisited: $("#hideVisitedToggle")?.checked,
         query: $("#searchInput")?.value
       });
+
+      // scroll fixes are optional; leaving out for stability
     }
 
     $("#hideVisitedToggle")?.addEventListener("change", () => updateForTour(activeTour));
