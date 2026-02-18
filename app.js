@@ -14,18 +14,22 @@ function loadVisitedSet() {
     return new Set();
   }
 }
+
 function saveVisitedSet(set) {
   localStorage.setItem(STORAGE_KEYS.visited, JSON.stringify([...set]));
 }
+
 function setStatus(msg) {
-  $("#statusBar").textContent = msg || "";
+  const el = $("#statusBar");
+  if (el) el.textContent = msg || "";
 }
+
 function normalize(str) {
   return (str || "").toString().trim().toLowerCase();
 }
 
 function buildStopNavUrl(stop) {
-  // Prefer lat/lng if you add them later; address/title fallback works fine.
+  // Prefer lat/lng if present; fallback to address/title query.
   if (typeof stop.lat === "number" && typeof stop.lng === "number") {
     return `https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`;
   }
@@ -70,9 +74,11 @@ function renderIntroCallout(data) {
 
 function renderStops({ tour, visitedSet, hideVisited, query }) {
   const grid = $("#stopsGrid");
+  const template = $("#stopCardTemplate");
+  if (!grid || !template) return;
+
   grid.innerHTML = "";
 
-  const template = $("#stopCardTemplate");
   const stops = (tour.stops || []).slice().sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
   const q = normalize(query);
 
@@ -110,85 +116,82 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
 
     const isVisited = visitedSet.has(stop.id);
 
-    img.src = stop.photo || "";
-    img.alt = stop.title ? `${stop.title} photo` : "Stop photo";
-    img.onerror = () => {
-      img.style.display = "none";
-      const media = node.querySelector(".card__media");
-      media.style.aspectRatio = "auto";
-      media.style.padding = "10px";
-      media.textContent = "Photo unavailable";
-    };
+    if (img) {
+      img.src = stop.photo || "";
+      img.alt = stop.title ? `${stop.title} photo` : "Stop photo";
+      img.onerror = () => {
+        img.style.display = "none";
+        const media = node.querySelector(".card__media");
+        if (media) {
+          media.style.aspectRatio = "auto";
+          media.style.padding = "10px";
+          media.textContent = "Photo unavailable";
+        }
+      };
+    }
 
-    title.textContent = stop.title || "Tour Stop";
-    subtitle.textContent = stop.subtitle || stop.address || "";
-    desc.textContent = stop.description || "";
+    if (title) title.textContent = stop.title || "Tour Stop";
+    if (subtitle) subtitle.textContent = stop.subtitle || stop.address || "";
+    if (desc) desc.textContent = stop.description || "";
 
-    nav.href = buildStopNavUrl(stop);
+    if (nav) nav.href = buildStopNavUrl(stop);
 
-    badge.hidden = !isVisited;
+    if (badge) badge.hidden = !isVisited;
 
-    visitedBtn.textContent = isVisited ? "Visited ✓" : "Mark visited";
-    visitedBtn.addEventListener("click", () => {
-      if (!stop.id) return;
-      if (visitedSet.has(stop.id)) visitedSet.delete(stop.id);
-      else visitedSet.add(stop.id);
+    if (visitedBtn) {
+      visitedBtn.textContent = isVisited ? "Visited ✓" : "Mark visited";
+      visitedBtn.addEventListener("click", () => {
+        if (!stop.id) return;
+        if (visitedSet.has(stop.id)) visitedSet.delete(stop.id);
+        else visitedSet.add(stop.id);
 
-      saveVisitedSet(visitedSet);
-      renderStops({
-        tour,
-        visitedSet,
-        hideVisited: $("#hideVisitedToggle").checked,
-        query: $("#searchInput").value
+        saveVisitedSet(visitedSet);
+        renderStops({
+          tour,
+          visitedSet,
+          hideVisited: $("#hideVisitedToggle")?.checked,
+          query: $("#searchInput")?.value
+        });
       });
-    });
+    }
 
     grid.appendChild(node);
   }
 }
 
-let deferredInstallPrompt = null;
-function setupInstallUI() {
-  const installBtn = $("#installBtn");
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-    installBtn.hidden = false;
-  });
-  installBtn.addEventListener("click", async () => {
-    if (!deferredInstallPrompt) return;
-    deferredInstallPrompt.prompt();
-    const choice = await deferredInstallPrompt.userChoice;
-    setStatus(choice?.outcome === "accepted" ? "Installed!" : "Install dismissed.");
-    deferredInstallPrompt = null;
-    installBtn.hidden = true;
-  });
-  window.addEventListener("appinstalled", () => {
-    setStatus("App installed.");
-    installBtn.hidden = true;
-  });
-}
-
 function setupShare() {
-  $("#shareBtn").addEventListener("click", async () => {
-    const shareData = { title: document.title, text: "SFSU Self-Guided Tour", url: window.location.href };
+  const btn = $("#shareBtn");
+  if (!btn) return;
+
+  btn.addEventListener("click", async () => {
+    const shareData = {
+      title: document.title,
+      text: "SFSU Self-Guided Tour",
+      url: window.location.href
+    };
     try {
-      if (navigator.share) await navigator.share(shareData);
-      else {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
         await navigator.clipboard.writeText(window.location.href);
         setStatus("Link copied to clipboard.");
       }
-    } catch {}
+    } catch {
+      // user cancelled or share not available
+    }
   });
 }
 
 function setOnlineUI() {
   const dot = $("#onlineDot");
   const txt = $("#onlineText");
+  if (!dot || !txt) return;
+
   const online = navigator.onLine;
   dot.style.background = online ? "#39d98a" : "#ff6b6b";
   txt.textContent = online ? "Online" : "Offline (showing cached content if available)";
 }
+
 window.addEventListener("online", setOnlineUI);
 window.addEventListener("offline", setOnlineUI);
 
@@ -199,35 +202,44 @@ async function loadTourData() {
 }
 
 function getToursFromData(data) {
-  // Backwards compatible: if old format exists, wrap it
   if (Array.isArray(data.tours) && data.tours.length) return data.tours;
+
+  // Backwards compatible old format
   if (Array.isArray(data.stops)) {
-    return [{
-      id: "default",
-      name: data.tourSubtitle || "Campus Tour",
-      description: data.tourDescription || "",
-      routeUrl: data.routeUrl || "",
-      stops: data.stops
-    }];
+    return [
+      {
+        id: "default",
+        name: data.tourSubtitle || "Campus Tour",
+        description: data.tourDescription || "",
+        routeUrl: data.routeUrl || "",
+        stops: data.stops
+      }
+    ];
   }
   return [];
 }
 
 function setHeaderFromTour(data, tour) {
-  $("#tourTitle").textContent = data.appName || data.tourName || "Campus Tour";
-  $("#tourMeta").textContent = tour.name || data.tourSubtitle || "Self-guided tour";
-  $("#tourDesc").textContent = tour.description || data.tourDescription || "Explore stops at your own pace.";
+  const titleEl = $("#tourTitle");
+  const metaEl = $("#tourMeta");
+  const descEl = $("#tourDesc");
+
+  if (titleEl) titleEl.textContent = data.appName || data.tourName || "Campus Tour";
+  if (metaEl) metaEl.textContent = tour.name || data.tourSubtitle || "Self-guided tour";
+  if (descEl) descEl.textContent = tour.description || data.tourDescription || "Explore stops at your own pace.";
 }
 
 async function main() {
   setOnlineUI();
-  setupInstallUI();
   setupShare();
 
-  $("#reloadBtn").addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.reload();
-  });
+  const reloadBtn = $("#reloadBtn");
+  if (reloadBtn) {
+    reloadBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.reload();
+    });
+  }
 
   const visitedSet = loadVisitedSet();
 
@@ -241,7 +253,7 @@ async function main() {
 
     const tourSelect = $("#tourSelect");
     const savedTourId = localStorage.getItem(STORAGE_KEYS.activeTour);
-    let activeTour = tours.find(t => t.id === savedTourId) || tours[0];
+    let activeTour = tours.find((t) => t.id === savedTourId) || tours[0];
 
     // Populate dropdown
     if (tourSelect) {
@@ -255,7 +267,7 @@ async function main() {
       }
       tourSelect.addEventListener("change", () => {
         const id = tourSelect.value;
-        const next = tours.find(t => t.id === id) || tours[0];
+        const next = tours.find((t) => t.id === id) || tours[0];
         activeTour = next;
         localStorage.setItem(STORAGE_KEYS.activeTour, activeTour.id);
         updateForTour(activeTour);
@@ -267,40 +279,44 @@ async function main() {
 
       // Route button
       const routeBtn = $("#openRouteBtn");
-      routeBtn.href = tour.routeUrl || "https://www.google.com/maps";
-      routeBtn.textContent = "Open Full Route in Google Maps";
+      if (routeBtn) {
+        routeBtn.href = tour.routeUrl || "https://www.google.com/maps";
+        routeBtn.textContent = "Open Full Route in Google Maps";
+      }
 
       // Render stops
       renderStops({
         tour,
         visitedSet,
-        hideVisited: $("#hideVisitedToggle").checked,
-        query: $("#searchInput").value
+        hideVisited: $("#hideVisitedToggle")?.checked,
+        query: $("#searchInput")?.value
       });
     }
 
     // Controls
-    $("#hideVisitedToggle").addEventListener("change", () => updateForTour(activeTour));
-    $("#resetVisitedBtn").addEventListener("click", () => {
+    $("#hideVisitedToggle")?.addEventListener("change", () => updateForTour(activeTour));
+    $("#resetVisitedBtn")?.addEventListener("click", () => {
       visitedSet.clear();
       saveVisitedSet(visitedSet);
       updateForTour(activeTour);
       setStatus("Visited status reset.");
     });
-    $("#searchInput").addEventListener("input", () => updateForTour(activeTour));
+    $("#searchInput")?.addEventListener("input", () => updateForTour(activeTour));
 
     updateForTour(activeTour);
     setStatus("");
-
   } catch (err) {
     console.error(err);
     setStatus("Could not load tour content. Check stops.json and reload.");
   }
 
-  // SW registration
+  // SW registration (keep for offline caching)
   if ("serviceWorker" in navigator) {
-    try { await navigator.serviceWorker.register("./service-worker.js"); }
-    catch (e) { console.warn("SW registration failed", e); }
+    try {
+      await navigator.serviceWorker.register("./service-worker.js");
+    } catch (e) {
+      console.warn("SW registration failed", e);
+    }
   }
 }
 
