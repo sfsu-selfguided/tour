@@ -34,9 +34,23 @@
   <main class="container">
     <section class="hero">
       <h1 class="hero__title" id="tourTitle">Campus Tour</h1>
+
       <p class="hero__desc" id="tourDesc">
         Explore stops at your own pace. Tap “Navigate” at any stop, or open the full route in Google Maps.
       </p>
+
+      <!-- Tour selector (options injected by app.js) -->
+      <div class="hero__cta" style="margin-bottom:12px;">
+        <label style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <span style="color:var(--muted); font-size:14px;">Tour:</span>
+          <select id="tourSelect" class="btn btn--ghost" style="padding:0 12px;">
+            <!-- injected -->
+          </select>
+        </label>
+      </div>
+
+      <!-- Safety callout (rendered by app.js if present in stops.json) -->
+      <section id="introCallout"></section>
 
       <div class="hero__cta">
         <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
