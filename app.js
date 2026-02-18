@@ -213,28 +213,8 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
 }
 
 /* =========
-   Share + online status
+   online status
    ========= */
-function setupShare() {
-  const btn = $("#shareBtn");
-  if (!btn) return;
-
-  btn.addEventListener("click", async () => {
-    const shareData = {
-      title: document.title,
-      text: "SFSU Self-Guided Campus Tour",
-      url: window.location.href
-    };
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        setStatus("Link copied to clipboard.");
-      }
-    } catch {}
-  });
-}
 
 function setOnlineUI() {
   const dot = $("#onlineDot");
