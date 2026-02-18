@@ -5,6 +5,54 @@ const STORAGE_KEYS = {
   activeTour: "sfsuTour.activeTourId"
 };
 
+/* =========
+   Theme toggle (light/dark)
+   ========= */
+const THEME_KEY = "sfsuTour.theme"; // "light" | "dark" | "system"
+
+function getSystemTheme() {
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function applyTheme(theme) {
+  const t = theme === "system" ? getSystemTheme() : theme;
+  document.documentElement.dataset.theme = t;
+
+  const btn = $("#themeToggle");
+  if (btn) {
+    btn.textContent = t === "dark" ? "🌙 Dark" : "☀️ Light";
+    btn.setAttribute("aria-label", `Theme: ${t}. Tap to toggle.`);
+  }
+}
+
+function setupThemeToggle() {
+  const saved = localStorage.getItem(THEME_KEY) || "system";
+  applyTheme(saved);
+
+  const btn = $("#themeToggle");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    const current = document.documentElement.dataset.theme || getSystemTheme();
+    const next = current === "dark" ? "light" : "dark";
+    localStorage.setItem(THEME_KEY, next);
+    applyTheme(next);
+  });
+
+  // If user chose "system", follow system changes
+  if (saved === "system" && window.matchMedia) {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+      const now = localStorage.getItem(THEME_KEY) || "system";
+      if (now === "system") applyTheme("system");
+    });
+  }
+}
+
+/* =========
+   Visited state
+   ========= */
 function loadVisitedSet() {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.visited);
@@ -37,6 +85,9 @@ function buildStopNavUrl(stop) {
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
+/* =========
+   Intro callout (emergency phones)
+   ========= */
 function renderIntroCallout(data) {
   const mount = $("#introCallout");
   if (!mount) return;
@@ -50,8 +101,9 @@ function renderIntroCallout(data) {
   const imgs = Array.isArray(c.images) ? c.images : [];
   const firstImg = imgs[0];
 
+  // Simple card for now (Bundle C will upgrade overlay style)
   mount.innerHTML = `
-    <div class="card" style="margin: 10px 0 0;">
+    <div class="card" style="margin-top:14px;">
       <div class="card__media" style="${firstImg ? "" : "display:none;"}">
         ${firstImg ? `<img class="card__img" src="${firstImg}" alt="${c.title || "Safety"}" loading="lazy" />` : ""}
       </div>
@@ -72,6 +124,9 @@ function renderIntroCallout(data) {
   `;
 }
 
+/* =========
+   Stops rendering
+   ========= */
 function renderStops({ tour, visitedSet, hideVisited, query }) {
   const grid = $("#stopsGrid");
   const template = $("#stopCardTemplate");
@@ -159,6 +214,9 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
   }
 }
 
+/* =========
+   Share + online status
+   ========= */
 function setupShare() {
   const btn = $("#shareBtn");
   if (!btn) return;
@@ -166,7 +224,7 @@ function setupShare() {
   btn.addEventListener("click", async () => {
     const shareData = {
       title: document.title,
-      text: "SFSU Self-Guided Tour",
+      text: "SFSU Self-Guided Campus Tour",
       url: window.location.href
     };
     try {
@@ -177,7 +235,7 @@ function setupShare() {
         setStatus("Link copied to clipboard.");
       }
     } catch {
-      // user cancelled or share not available
+      // user cancelled / not available
     }
   });
 }
@@ -195,6 +253,9 @@ function setOnlineUI() {
 window.addEventListener("online", setOnlineUI);
 window.addEventListener("offline", setOnlineUI);
 
+/* =========
+   Data loading
+   ========= */
 async function loadTourData() {
   const res = await fetch("./stops.json", { cache: "no-store" });
   if (!res.ok) throw new Error("Could not load stops.json");
@@ -219,17 +280,17 @@ function getToursFromData(data) {
   return [];
 }
 
-function setHeaderFromTour(data, tour) {
-  const titleEl = $("#tourTitle");
+/* IMPORTANT: Do NOT overwrite the hero welcome copy */
+function setHeaderFromTour(_data, tour) {
   const metaEl = $("#tourMeta");
-  const descEl = $("#tourDesc");
-
-  if (titleEl) titleEl.textContent = data.appName || data.tourName || "Campus Tour";
-  if (metaEl) metaEl.textContent = tour.name || data.tourSubtitle || "Self-guided tour";
-  if (descEl) descEl.textContent = tour.description || data.tourDescription || "Explore stops at your own pace.";
+  if (metaEl) metaEl.textContent = tour.name || "Self-guided tour";
 }
 
+/* =========
+   Main
+   ========= */
 async function main() {
+  setupThemeToggle();
   setOnlineUI();
   setupShare();
 
@@ -284,7 +345,6 @@ async function main() {
         routeBtn.textContent = "Open Full Route in Google Maps";
       }
 
-      // Render stops
       renderStops({
         tour,
         visitedSet,
@@ -293,7 +353,6 @@ async function main() {
       });
     }
 
-    // Controls
     $("#hideVisitedToggle")?.addEventListener("change", () => updateForTour(activeTour));
     $("#resetVisitedBtn")?.addEventListener("click", () => {
       visitedSet.clear();
