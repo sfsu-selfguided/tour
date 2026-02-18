@@ -41,7 +41,6 @@ function setupThemeToggle() {
     applyTheme(next);
   });
 
-  // If user chose "system", follow system changes
   if (saved === "system" && window.matchMedia) {
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
       const now = localStorage.getItem(THEME_KEY) || "system";
@@ -76,43 +75,64 @@ function normalize(str) {
   return (str || "").toString().trim().toLowerCase();
 }
 
+/* =========
+   Navigation URL (fix multi-options)
+   ========= */
 function buildStopNavUrl(stop) {
+  // 1) If stop.navUrl is provided, use it (best / most precise).
+  if (stop && typeof stop.navUrl === "string" && stop.navUrl.trim()) {
+    return stop.navUrl.trim();
+  }
+
+  // 2) Otherwise use lat/lng (if you add later).
   if (typeof stop.lat === "number" && typeof stop.lng === "number") {
     return `https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`;
   }
+
+  // 3) Fallback: address/title search.
   const q = encodeURIComponent(stop.address || stop.title || "San Francisco State University");
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
 /* =========
-   Intro callout
+   Callouts
    ========= */
-function renderIntroCallout(data) {
-  const mount = $("#introCallout");
+function renderCallout(mountSelector, callout) {
+  const mount = $(mountSelector);
   if (!mount) return;
 
-  const c = data?.pageSections?.introCallout;
-  if (!c) {
+  if (!callout) {
     mount.innerHTML = "";
     return;
   }
 
-  const imgs = Array.isArray(c.images) ? c.images : [];
+  const imgs = Array.isArray(callout.images) ? callout.images : [];
   const firstImg = imgs[0];
+
+  // If image exists, put title/text OVER the image.
+  const overlay = firstImg
+    ? `
+      <div class="mediaOverlay">
+        <h3 class="mediaOverlay__title">${callout.title || ""}</h3>
+        <p class="mediaOverlay__text">${callout.text || ""}</p>
+      </div>
+    `
+    : "";
 
   mount.innerHTML = `
     <div class="card" style="margin-top:14px;">
       <div class="card__media" style="${firstImg ? "" : "display:none;"}">
-        ${firstImg ? `<img class="card__img" src="${firstImg}" alt="${c.title || "Safety"}" loading="lazy" />` : ""}
+        ${firstImg ? `<img class="card__img" src="${firstImg}" alt="${callout.title || "Callout"}" loading="lazy" />` : ""}
+        ${overlay}
       </div>
-      <div class="card__body">
-        <h2 class="card__title">${c.title || "Safety"}</h2>
-        <p class="card__desc" style="margin-top:10px;">${c.text || ""}</p>
+      <div class="card__body" style="${firstImg ? "padding-top:12px;" : ""}">
+        ${firstImg ? "" : `<h2 class="card__title">${callout.title || ""}</h2>`}
+        ${firstImg ? "" : `<p class="card__desc" style="margin-top:10px;">${callout.text || ""}</p>`}
         ${
-          c.linkUrl
+          callout.linkUrl
             ? `<div class="card__actions">
-                 <a class="btn btn--secondary" href="${c.linkUrl}" target="_blank" rel="noopener">
-                   ${c.linkText || "Learn more"}
+                 <a class="btn btn--secondary" href="${callout.linkUrl}" target="_blank" rel="noopener">
+                   ${callout.linkText || "Learn more"}
                  </a>
                </div>`
             : ""
@@ -120,6 +140,14 @@ function renderIntroCallout(data) {
       </div>
     </div>
   `;
+}
+
+function renderIntroCallout(data) {
+  renderCallout("#introCallout", data?.pageSections?.introCallout);
+}
+
+function renderOutroCallout(data) {
+  renderCallout("#outroCallout", data?.pageSections?.outroCallout);
 }
 
 /* =========
@@ -187,7 +215,7 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
     if (subtitle) subtitle.textContent = stop.subtitle || stop.address || "";
     if (desc) desc.textContent = stop.description || "";
 
-    if (nav) nav.href = stop.navUrl || buildStopNavUrl(stop);
+    if (nav) nav.href = buildStopNavUrl(stop);
 
     if (badge) badge.hidden = !isVisited;
 
@@ -213,9 +241,8 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
 }
 
 /* =========
-   online status
+   Online status
    ========= */
-
 function setOnlineUI() {
   const dot = $("#onlineDot");
   const txt = $("#onlineText");
@@ -225,7 +252,6 @@ function setOnlineUI() {
   dot.style.background = online ? "#39d98a" : "#ff6b6b";
   txt.textContent = online ? "Online" : "Offline (showing cached content if available)";
 }
-
 window.addEventListener("online", setOnlineUI);
 window.addEventListener("offline", setOnlineUI);
 
@@ -255,7 +281,6 @@ function getToursFromData(data) {
   return [];
 }
 
-/* Do NOT overwrite the hero welcome copy */
 function setHeaderFromTour(_data, tour) {
   const metaEl = $("#tourMeta");
   if (metaEl) metaEl.textContent = tour.name || "Self-guided tour";
@@ -268,7 +293,6 @@ async function main() {
   setupThemeToggle();
   setOnlineUI();
 
-
   $("#reloadBtn")?.addEventListener("click", (e) => {
     e.preventDefault();
     window.location.reload();
@@ -279,7 +303,9 @@ async function main() {
   try {
     setStatus("Loading…");
     const data = await loadTourData();
+
     renderIntroCallout(data);
+    renderOutroCallout(data);
 
     const tours = getToursFromData(data);
     if (!tours.length) throw new Error("No tours found in stops.json");
@@ -297,6 +323,7 @@ async function main() {
         if (t.id === activeTour.id) opt.selected = true;
         tourSelect.appendChild(opt);
       }
+
       tourSelect.addEventListener("change", () => {
         const id = tourSelect.value;
         const next = tours.find((t) => t.id === id) || tours[0];
@@ -324,12 +351,14 @@ async function main() {
     }
 
     $("#hideVisitedToggle")?.addEventListener("change", () => updateForTour(activeTour));
+
     $("#resetVisitedBtn")?.addEventListener("click", () => {
       visitedSet.clear();
       saveVisitedSet(visitedSet);
       updateForTour(activeTour);
       setStatus("Visited status reset.");
     });
+
     $("#searchInput")?.addEventListener("input", () => updateForTour(activeTour));
 
     updateForTour(activeTour);
