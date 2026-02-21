@@ -32,7 +32,7 @@
           "subtitle": "Equity, identity, social justice",
           "description": "Houses the College of Ethnic Studies — the first of its kind in the nation — and the Psychology Department. Programs explore identity, equity, social justice, and human behavior.",
           "address": "Ethnic Studies & Psychology Building, San Francisco State University",
-          "photo": "assets/photos/ethnic-studies.png"
+          "photo": "assets/photos/ethnic-studies-psychology.png"
         },
         {
           "id": "burk-hall",
@@ -50,7 +50,7 @@
           "subtitle": "Athletics + Kinesiology",
           "description": "Supports Athletics and Kinesiology with indoor courts, fitness and training areas. Outside near Don Nasser Family Plaza is the Ally Gator Spirit Statue — a favorite photo spot.",
           "address": "Gymnasium, San Francisco State University",
-          "photo": "assets/photos/gym.png"
+          "photo": "assets/photos/gymnasium.png"
         },
         {
           "id": "thornton-hall",
@@ -59,7 +59,7 @@
           "subtitle": "Science & Engineering + Planetarium",
           "description": "Home to the College of Science & Engineering with lecture halls, labs, and the campus Planetarium. Students across STEM majors complete foundational coursework here.",
           "address": "Thornton Hall, San Francisco State University",
-          "photo": "assets/photos/thornton.png"
+          "photo": "assets/photos/thornton-hall.png"
         },
         {
           "id": "hensill-hall",
@@ -68,7 +68,7 @@
           "subtitle": "Biology + life sciences",
           "description": "Houses Biology and life science programs with teaching and research labs supporting hands-on scientific learning. Popular for STEM and pre-health pathways.",
           "address": "Hensill Hall, San Francisco State University",
-          "photo": "assets/photos/hensill.png"
+          "photo": "assets/photos/hensill-hall.png"
         },
         {
           "id": "seic",
@@ -77,7 +77,7 @@
           "subtitle": "Modern labs + project-based learning",
           "description": "Supports engineering and applied sciences with collaborative labs and modern research spaces designed for hands-on, project-based learning.",
           "address": "Science & Engineering Innovation Center, San Francisco State University",
-          "photo": "assets/photos/seic.png"
+          "photo": "assets/photos/science-innovation-center.png"
         },
         {
           "id": "science-building",
@@ -95,7 +95,7 @@
           "subtitle": "Wellness + social impact careers",
           "description": "Houses programs like Public Health, Social Work, and other community-focused disciplines. Encourages interdisciplinary collaboration and prepares students for impact-driven careers.",
           "address": "Health & Social Sciences Building, San Francisco State University",
-          "photo": "assets/photos/hss.png"
+          "photo": "assets/photos/health-social-sciences.png"
         },
         {
           "id": "business",
@@ -104,7 +104,7 @@
           "subtitle": "Career readiness + FogCam",
           "description": "Supports majors like Finance, Marketing, Accounting, and Management with advising and career development resources. Inside is the SFSU FogCam — wave toward the windows and check it live at fogcam.org.",
           "address": "Lam Family College of Business, San Francisco State University",
-          "photo": "assets/photos/business.png"
+          "photo": "assets/photos/lam-family-business.png"
         },
         {
           "id": "administration-uac",
@@ -113,7 +113,7 @@
           "subtitle": "Academic planning + guidance",
           "description": "Houses university leadership offices and key administrative services. The Undergraduate Advising Center (UAC) supports general education planning and graduation advising.",
           "address": "Administration Building, San Francisco State University",
-          "photo": "assets/photos/admin.png"
+          "photo": "assets/photos/administration-building.png"
         },
         {
           "id": "library",
@@ -140,7 +140,7 @@
           "subtitle": "Student life hub + Bookstore",
           "description": "Central hub for student life with dining options, lounges, student organization offices, meeting rooms, and the SFSU Bookstore. Many campus events take place here throughout the year.",
           "address": "Cesar Chavez Student Center, San Francisco State University",
-          "photo": "assets/photos/cesar-chavez.png"
+          "photo": "assets/photos/cesar-chavez-student-center.png"
         },
         {
           "id": "creative-arts",
@@ -167,7 +167,7 @@
           "subtitle": "BECA media production",
           "description": "Houses Broadcast and Electronic Communication Arts (BECA). Students gain hands-on experience in media production, broadcasting, and digital storytelling using pro-grade studios and labs.",
           "address": "Marcus Hall, San Francisco State University",
-          "photo": "assets/photos/marcus.png"
+          "photo": "assets/photos/marcus-hall.png"
         },
         {
           "id": "humanities",
@@ -176,7 +176,7 @@
           "subtitle": "Poetry Center + languages",
           "description": "Houses Liberal & Creative Arts departments including English, History, and Philosophy, plus the Poetry Center and American Language Institute.",
           "address": "Humanities Building, San Francisco State University",
-          "photo": "assets/photos/humanities.png"
+          "photo": "assets/photos/humanities-building.png"
         },
         {
           "id": "west-grove",
@@ -194,7 +194,7 @@
           "subtitle": "Residential dining (west campus)",
           "description": "Serves students living in the west campus housing communities, offering flexible meal options and diverse food stations.",
           "address": "Yerba Buena Dining Hall, San Francisco State University",
-          "photo": "assets/photos/yerba-buena.png"
+          "photo": "assets/photos/yerba-buena-dining.png"
         },
         {
           "id": "gator-health",
