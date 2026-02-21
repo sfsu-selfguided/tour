@@ -353,4 +353,21 @@ strong{font-weight:700}
     font-size:14px;
     -webkit-line-clamp: 3;
   }
+
+  /* Bundle 1 tweaks */
+
+/* Make Tour label more prominent */
+.tourLabel {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* Emergency phone text overlay: slightly MORE translucent */
+.mediaOverlay {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+:root[data-theme="dark"] .mediaOverlay {
+  background: rgba(0, 0, 0, 0.50);
+}
 }
