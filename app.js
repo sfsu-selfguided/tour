@@ -13,12 +13,6 @@ function getSystemTheme() {
     : "light";
 }
 
-function setLogoForTheme(theme) {
-  const img = $("#logoImg");
-  if (!img) return;
-  img.src = theme === "dark" ? "logo-white.png" : "logo-purple.png";
-}
-
 function applyTheme(theme) {
   const t = theme === "system" ? getSystemTheme() : theme;
   document.documentElement.dataset.theme = t;
@@ -29,7 +23,8 @@ function applyTheme(theme) {
     btn.setAttribute("aria-label", `Theme: ${t}. Tap to toggle.`);
   }
 
-  setLogoForTheme(t);
+  const logo = $("#schoolLogo");
+  if (logo) logo.src = t === "dark" ? "logo-white.png" : "logo-purple.png";
 }
 
 function setupThemeToggle() {
@@ -54,9 +49,6 @@ function setupThemeToggle() {
   }
 }
 
-/* =========
-   Visited state
-   ========= */
 function loadVisitedSet() {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.visited);
@@ -79,9 +71,7 @@ function normalize(str) {
   return (str || "").toString().trim().toLowerCase();
 }
 
-/* =========
-   Navigation URL (precise if navUrl exists)
-   ========= */
+/* Navigation URL: prefer stop.navUrl to avoid "multiple choices" */
 function buildStopNavUrl(stop) {
   if (stop && typeof stop.navUrl === "string" && stop.navUrl.trim()) {
     return stop.navUrl.trim();
@@ -93,10 +83,8 @@ function buildStopNavUrl(stop) {
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
-/* =========
-   Callouts
-   ========= */
-function renderCallout(mountSelector, callout) {
+/* Callouts */
+function renderCallout(mountSelector, callout, { calloutStyleClass = "" } = {}) {
   const mount = $(mountSelector);
   if (!mount) return;
 
@@ -118,17 +106,15 @@ function renderCallout(mountSelector, callout) {
     : "";
 
   mount.innerHTML = `
-    <div class="card" style="margin-top:14px;">
+    <div class="card ${calloutStyleClass}">
       <div class="card__media" style="${firstImg ? "" : "display:none;"}">
         ${firstImg ? `<img class="card__img" src="${firstImg}" alt="${callout.title || "Callout"}" loading="lazy" />` : ""}
         ${overlay}
       </div>
       <div class="card__body" style="${firstImg ? "padding-top:12px;" : ""}">
-        ${firstImg ? "" : `<h2 class="card__title">${callout.title || ""}</h2>`}
-        ${firstImg ? "" : `<p class="card__desc" style="margin-top:10px;">${callout.text || ""}</p>`}
         ${
           callout.linkUrl
-            ? `<div class="card__actions">
+            ? `<div class="card__actions" style="margin-top:0;">
                  <a class="btn btn--secondary" href="${callout.linkUrl}" target="_blank" rel="noopener">
                    ${callout.linkText || "Learn more"}
                  </a>
@@ -141,15 +127,49 @@ function renderCallout(mountSelector, callout) {
 }
 
 function renderIntroCallout(data) {
-  renderCallout("#introCallout", data?.pageSections?.introCallout);
-}
-function renderOutroCallout(data) {
-  renderCallout("#outroCallout", data?.pageSections?.outroCallout);
+  renderCallout("#introCallout", data?.pageSections?.introCallout, { calloutStyleClass: "card--callout" });
 }
 
-/* =========
-   Stops rendering
-   ========= */
+/* Next steps accordion */
+function renderNextSteps(data) {
+  const mount = $("#nextSteps");
+  if (!mount) return;
+
+  const ns = data?.pageSections?.nextSteps;
+  if (!ns || !Array.isArray(ns.links) || ns.links.length === 0) {
+    mount.innerHTML = "";
+    return;
+  }
+
+  mount.innerHTML = `
+    <div class="accordion">
+      <button class="accordion__btn" type="button" id="nextStepsBtn" aria-expanded="false">
+        <span>${ns.title || "Ready for next steps?"}</span>
+        <span id="nextStepsChevron">▾</span>
+      </button>
+
+      <div class="accordion__panel" id="nextStepsPanel">
+        ${ns.links
+          .map((l) => `<a class="linkItem" href="${l.url}" target="_blank" rel="noopener">${l.text}</a>`)
+          .join("")}
+      </div>
+    </div>
+  `;
+
+  const btn = $("#nextStepsBtn");
+  const panel = $("#nextStepsPanel");
+  const chev = $("#nextStepsChevron");
+  if (!btn || !panel) return;
+
+  btn.addEventListener("click", () => {
+    const open = panel.style.display === "block";
+    panel.style.display = open ? "none" : "block";
+    btn.setAttribute("aria-expanded", open ? "false" : "true");
+    if (chev) chev.textContent = open ? "▾" : "▴";
+  });
+}
+
+/* Stops rendering */
 function renderStops({ tour, visitedSet, hideVisited, query }) {
   const grid = $("#stopsGrid");
   const template = $("#stopCardTemplate");
@@ -201,8 +221,8 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
         img.style.display = "none";
         const media = node.querySelector(".card__media");
         if (media) {
-          media.style.height = "auto";
-          media.style.padding = "12px";
+          media.style.aspectRatio = "auto";
+          media.style.padding = "10px";
           media.textContent = "Photo unavailable";
         }
       };
@@ -211,6 +231,7 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
     if (title) title.textContent = stop.title || "Tour Stop";
     if (subtitle) subtitle.textContent = stop.subtitle || stop.address || "";
     if (desc) desc.textContent = stop.description || "";
+
     if (nav) nav.href = buildStopNavUrl(stop);
 
     if (badge) badge.hidden = !isVisited;
@@ -236,9 +257,7 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
   }
 }
 
-/* =========
-   Online status
-   ========= */
+/* Online status */
 function setOnlineUI() {
   const dot = $("#onlineDot");
   const txt = $("#onlineText");
@@ -251,9 +270,7 @@ function setOnlineUI() {
 window.addEventListener("online", setOnlineUI);
 window.addEventListener("offline", setOnlineUI);
 
-/* =========
-   Data loading
-   ========= */
+/* Data */
 async function loadTourData() {
   const res = await fetch("./stops.json", { cache: "no-store" });
   if (!res.ok) throw new Error("Could not load stops.json");
@@ -267,7 +284,7 @@ function getToursFromData(data) {
     return [
       {
         id: "default",
-        name: data.tourSubtitle || "Campus Tour",
+        name: data.tourSubtitle || "Without Housing",
         description: data.tourDescription || "",
         routeUrl: data.routeUrl || "",
         stops: data.stops,
@@ -277,16 +294,32 @@ function getToursFromData(data) {
   return [];
 }
 
-function setHeaderFromTour(data, tour) {
+function setHeaderFromTour(_data, tour) {
   const metaEl = $("#tourMeta");
   if (metaEl) metaEl.textContent = tour.name || "Self-guided tour";
 
-  // (optional) If you ever want hero title/desc to come from JSON later, we can wire it here.
+  const titleEl = $("#tourTitle");
+  if (titleEl) titleEl.textContent = "Ready to begin your tour?";
+
+  const descEl = $("#tourDesc");
+  if (descEl) {
+    descEl.textContent =
+      tour.description ||
+      "Welcome! This is a self-guided, outdoor-only walking tour. Choose your tour type below and tap “Navigate” at any stop.";
+  }
 }
 
-/* =========
-   Main
-   ========= */
+/* Map link (one map for all tours) */
+function setupMapLink(data) {
+  const wrap = $("#mapLinkWrap");
+  const a = $("#campusMapLink");
+  const url = data?.pageSections?.map?.url || "assets/maps/campus-map.pdf";
+
+  if (!wrap || !a) return;
+  a.href = url;
+  wrap.hidden = false;
+}
+
 async function main() {
   setupThemeToggle();
   setOnlineUI();
@@ -303,7 +336,8 @@ async function main() {
     const data = await loadTourData();
 
     renderIntroCallout(data);
-    renderOutroCallout(data);
+    renderNextSteps(data);
+    setupMapLink(data);
 
     const tours = getToursFromData(data);
     if (!tours.length) throw new Error("No tours found in stops.json");
@@ -333,12 +367,6 @@ async function main() {
 
     function updateForTour(tour) {
       setHeaderFromTour(data, tour);
-
-      const routeBtn = $("#openRouteBtn");
-      if (routeBtn) {
-        routeBtn.href = tour.routeUrl || "https://www.google.com/maps";
-        routeBtn.textContent = "Open Full Route in Google Maps";
-      }
 
       renderStops({
         tour,
