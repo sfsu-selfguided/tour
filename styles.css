@@ -216,6 +216,7 @@ a { color: inherit; }
   position: relative;
   aspect-ratio: 16 / 9;
   background: rgba(0,0,0,0.05);
+  overflow: hidden;
 }
 .card__img {
   width: 100%;
@@ -243,9 +244,9 @@ a { color: inherit; }
 .card__actions { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
 
 /* Callout card is taller so emergency phone is visible */
-.card--callout .card__media { min-height: 240px; }
+.card--callout .card__media { min-height: 280px; }
 @media (min-width: 760px) {
-  .card--callout .card__media { min-height: 320px; }
+  .card--callout .card__media { min-height: 360px; }
 }
 
 /* Overlay is bottom-only and translucent */
