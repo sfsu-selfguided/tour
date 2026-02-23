@@ -363,7 +363,20 @@ async function main() {
       for (const t of tours) {
         const opt = document.createElement("option");
         opt.value = t.id;
-        opt.textContent = t.id === "full" ? "With Housing" : "With Housing";
+       const id = (t.id || "").toLowerCase();
+const name = (t.name || "").toLowerCase();
+
+const isWithout =
+  id.includes("highlights") ||
+  name.includes("without") ||
+  id.includes("without");
+
+const isWith =
+  id === "full" ||
+  name.includes("with housing") ||
+  (id.includes("housing") && !id.includes("without"));
+
+opt.textContent = isWith && !isWithout ? "With Housing" : "Without Housing";
         if (t.id === activeTour.id) opt.selected = true;
         tourSelect.appendChild(opt);
       }
