@@ -277,8 +277,21 @@ a { color: inherit; }
   background: rgba(0, 0, 0, 0.46);
   border-color: rgba(255,255,255,0.14);
 }
-.mediaOverlay__title { margin: 0 0 6px; font-size: 16px; font-weight: 950; }
-.mediaOverlay__text { margin: 0; font-size: 14px; line-height: 1.35; }
+.mediaOverlay__title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 950;
+  max-width: 100%;
+}
+
+.mediaOverlay__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.35;
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
 
 /* End-of-tour wrapper */
 #outroWrap {
