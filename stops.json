@@ -6,15 +6,27 @@
       "text": "Keep an eye out for the blue emergency phones around campus. If you press the button, you’ll be connected directly to University Police Dispatch.",
       "linkText": "Learn more (UPD)",
       "linkUrl": "https://upd.sfsu.edu/campus-emergency-phones",
-      "images": ["assets/photos/emergency-phone.jpg"]
+      "images": ["assets/photos/emergency-phone.png"]
+    },
+    "nextSteps": {
+      "title": "Ready for next steps?",
+      "links": [
+        { "text": "Apply now", "url": "https://future.sfsu.edu/admissions" },
+        { "text": "Financial Aid Information", "url": "https://financialaid.sfsu.edu/" },
+        { "text": "Have questions before applying? Make an appointment with one of our recruiters", "url": "https://future.sfsu.edu/connect" },
+        { "text": "Sign up for one of our guided tours", "url": "https://future.sfsu.edu/visit" }
+      ]
+    },
+    "map": {
+      "url": "assets/maps/campus-map.pdf"
     }
   },
   "tours": [
     {
       "id": "without-housing",
       "name": "Without Housing",
-      "description": "Welcome to San Francisco State University! This is a self-guided, outdoor-only walking tour.",
-      "routeUrl": "https://www.google.com/maps",
+      "description": "Academics, student life, dining, and wellness — no residence hall stops.",
+      "routeUrl": "",
       "stops": [
         {
           "id": "student-services",
@@ -32,7 +44,8 @@
           "subtitle": "Equity, identity, social justice",
           "description": "Houses the College of Ethnic Studies — the first of its kind in the nation — and the Psychology Department. Programs explore identity, equity, social justice, and human behavior.",
           "address": "Ethnic Studies & Psychology Building, San Francisco State University",
-          "photo": "assets/photos/ethnic-studies-psychology.png"
+          "photo": "assets/photos/ethnic-studies.png",
+          "navUrl": "https://maps.app.goo.gl/cyMRRhsUjhqpXC1B7?g_st=ic"
         },
         {
           "id": "burk-hall",
@@ -50,7 +63,8 @@
           "subtitle": "Athletics + Kinesiology",
           "description": "Supports Athletics and Kinesiology with indoor courts, fitness and training areas. Outside near Don Nasser Family Plaza is the Ally Gator Spirit Statue — a favorite photo spot.",
           "address": "Gymnasium, San Francisco State University",
-          "photo": "assets/photos/gymnasium.png"
+          "photo": "assets/photos/gymnasium.png",
+          "navUrl": "https://maps.app.goo.gl/co357nChra97icxW8?g_st=ic"
         },
         {
           "id": "thornton-hall",
@@ -62,8 +76,17 @@
           "photo": "assets/photos/thornton-hall.png"
         },
         {
-          "id": "hensill-hall",
+          "id": "science-building",
           "order": 6,
+          "title": "Science Building",
+          "subtitle": "STEM learning + labs",
+          "description": "Science Building stop (label placeholder). We can refine the name and description once you confirm which building you meant to include.",
+          "address": "Science Building, San Francisco State University",
+          "photo": "assets/photos/science-building.png"
+        },
+        {
+          "id": "hensill-hall",
+          "order": 7,
           "title": "Hensill Hall",
           "subtitle": "Biology + life sciences",
           "description": "Houses Biology and life science programs with teaching and research labs supporting hands-on scientific learning. Popular for STEM and pre-health pathways.",
@@ -72,21 +95,12 @@
         },
         {
           "id": "seic",
-          "order": 7,
+          "order": 8,
           "title": "Science & Engineering Innovation Center",
           "subtitle": "Modern labs + project-based learning",
           "description": "Supports engineering and applied sciences with collaborative labs and modern research spaces designed for hands-on, project-based learning.",
           "address": "Science & Engineering Innovation Center, San Francisco State University",
-          "photo": "assets/photos/science-innovation-center.png"
-        },
-        {
-          "id": "science-building",
-          "order": 8,
-          "title": "Science Building",
-          "subtitle": "STEM classrooms + labs",
-          "description": "A key hub for science instruction and student learning, with classrooms and lab spaces that support hands-on coursework.",
-          "address": "Science Building, San Francisco State University",
-          "photo": "assets/photos/science-building.png"
+          "photo": "assets/photos/seic.png"
         },
         {
           "id": "hss",
@@ -95,7 +109,7 @@
           "subtitle": "Wellness + social impact careers",
           "description": "Houses programs like Public Health, Social Work, and other community-focused disciplines. Encourages interdisciplinary collaboration and prepares students for impact-driven careers.",
           "address": "Health & Social Sciences Building, San Francisco State University",
-          "photo": "assets/photos/health-social-sciences.png"
+          "photo": "assets/photos/hss.png"
         },
         {
           "id": "business",
@@ -104,7 +118,7 @@
           "subtitle": "Career readiness + FogCam",
           "description": "Supports majors like Finance, Marketing, Accounting, and Management with advising and career development resources. Inside is the SFSU FogCam — wave toward the windows and check it live at fogcam.org.",
           "address": "Lam Family College of Business, San Francisco State University",
-          "photo": "assets/photos/lam-family-business.png"
+          "photo": "assets/photos/business.png"
         },
         {
           "id": "administration-uac",
@@ -113,7 +127,7 @@
           "subtitle": "Academic planning + guidance",
           "description": "Houses university leadership offices and key administrative services. The Undergraduate Advising Center (UAC) supports general education planning and graduation advising.",
           "address": "Administration Building, San Francisco State University",
-          "photo": "assets/photos/administration-building.png"
+          "photo": "assets/photos/administration.png"
         },
         {
           "id": "library",
@@ -138,9 +152,9 @@
           "order": 14,
           "title": "Cesar Chavez Student Center",
           "subtitle": "Student life hub + Bookstore",
-          "description": "Central hub for student life with dining options, lounges, student organization offices, meeting rooms, and the SFSU Bookstore. Many campus events take place here throughout the year.",
+          "description": "Central hub for student life with dining options, lounges, student organization offices, meeting rooms, and the Bookstore. Many campus events take place here.",
           "address": "Cesar Chavez Student Center, San Francisco State University",
-          "photo": "assets/photos/cesar-chavez-student-center.png"
+          "photo": "assets/photos/cesar-chavez.png"
         },
         {
           "id": "creative-arts",
@@ -176,102 +190,114 @@
           "subtitle": "Poetry Center + languages",
           "description": "Houses Liberal & Creative Arts departments including English, History, and Philosophy, plus the Poetry Center and American Language Institute.",
           "address": "Humanities Building, San Francisco State University",
-          "photo": "assets/photos/humanities-building.png"
+          "photo": "assets/photos/humanities.png"
         },
         {
           "id": "west-grove",
           "order": 19,
           "title": "West Grove Commons",
-          "subtitle": "West campus gathering + dining area",
-          "description": "A west campus residential and community space with dining and gathering areas that support student life and campus connection.",
+          "subtitle": "West campus residential community",
+          "description": "West Grove Commons includes residential and dining spaces serving students living in the west campus housing community. It provides convenient access to food options and gathering spaces.",
           "address": "West Grove Commons, San Francisco State University",
-          "photo": "assets/photos/west-grove.png"
+          "photo": "assets/photos/west-grove.png",
+          "navUrl": "https://maps.app.goo.gl/WNrZy3ytAiFjmfwK7?g_st=ic"
         },
         {
           "id": "yerba-buena",
           "order": 20,
           "title": "Yerba Buena Dining Hall",
-          "subtitle": "Residential dining (west campus)",
-          "description": "Serves students living in the west campus housing communities, offering flexible meal options and diverse food stations.",
+          "subtitle": "Dining for west campus communities",
+          "description": "Yerba Buena Dining Hall serves students living in the west campus housing communities with diverse stations and flexible meal options.",
           "address": "Yerba Buena Dining Hall, San Francisco State University",
-          "photo": "assets/photos/yerba-buena-dining.png"
+          "photo": "assets/photos/yerba-buena.png"
         },
         {
           "id": "gator-health",
           "order": 21,
           "title": "Gator Health Center",
-          "subtitle": "Medical + wellness care",
+          "subtitle": "Student medical care + wellness",
           "description": "Provides medical care, lab services, X-rays, and wellness resources to enrolled students. Many services are covered through the student health fee.",
           "address": "Gator Health Center, San Francisco State University",
-          "photo": "assets/photos/gator-health-center.png"
+          "photo": "assets/photos/gator-health.png"
+        },
+        {
+          "id": "monarca-city-eats",
+          "order": 22,
+          "title": "Monarca Dining Hall (City Eats)",
+          "subtitle": "All-you-care-to-eat",
+          "description": "One of the primary dining facilities offering all-you-care-to-eat meals with multiple stations, rotating menus, and options for various dietary needs.",
+          "address": "Monarca Dining Hall (City Eats), San Francisco State University",
+          "photo": "assets/photos/monarca.png"
         },
         {
           "id": "mashouf",
-          "order": 22,
+          "order": 23,
           "title": "Mashouf Wellness Center",
           "subtitle": "Fitness + recreation",
           "description": "Comprehensive recreation and fitness facility with a climbing wall, indoor pool, track, weight rooms, and studios. Offers sports, group fitness, and wellness programming.",
           "address": "Mashouf Wellness Center, San Francisco State University",
-          "photo": "assets/photos/mashouf.png"
+          "photo": "assets/photos/mashouf.png",
+          "navUrl": "https://maps.app.goo.gl/ovMS5iLWf5qL77Ui8?g_st=ic"
         }
       ]
     },
     {
       "id": "with-housing",
       "name": "With Housing",
-      "description": "Welcome to San Francisco State University! This is a self-guided, outdoor-only walking tour.",
-      "routeUrl": "https://www.google.com/maps",
+      "description": "Everything in the tour + residence halls and apartment-style housing highlights.",
+      "routeUrl": "",
       "stops": [
         { "id": "student-services", "order": 1, "title": "Student Services Building", "subtitle": "One Stop + key student support", "description": "Home to One Stop Student Services for financial aid, billing, transcripts, registration, and enrollment questions. Also includes EOP, DPRC, Counseling & Psychological Services, and other essential support offices.", "address": "Student Services Building, San Francisco State University", "photo": "assets/photos/student-services.png" },
-        { "id": "ethnic-studies-psychology", "order": 2, "title": "Ethnic Studies & Psychology Building", "subtitle": "Equity, identity, social justice", "description": "Houses the College of Ethnic Studies — the first of its kind in the nation — and the Psychology Department. Programs explore identity, equity, social justice, and human behavior.", "address": "Ethnic Studies & Psychology Building, San Francisco State University", "photo": "assets/photos/ethnic-studies.png" },
-        { "id": "burk-hall", "order": 3, "title": "Burk Hall", "subtitle": "Nursing + classrooms", "description": "Home to Nursing and other academic programs, classroom space, faculty offices, and academic resources. Many students take courses here throughout their time at SFSU.", "address": "Burk Hall, San Francisco State University", "photo": "assets/photos/burk-hall.png" },
-        { "id": "gymnasium", "order": 4, "title": "Gymnasium", "subtitle": "Athletics + Kinesiology", "description": "Supports Athletics and Kinesiology with indoor courts, fitness and training areas. Outside near Don Nasser Family Plaza is the Ally Gator Spirit Statue — a favorite photo spot.", "address": "Gymnasium, San Francisco State University", "photo": "assets/photos/gym.png" },
-        { "id": "thornton-hall", "order": 5, "title": "Thornton Hall", "subtitle": "Science & Engineering + Planetarium", "description": "Home to the College of Science & Engineering with lecture halls, labs, and the campus Planetarium. Students across STEM majors complete foundational coursework here.", "address": "Thornton Hall, San Francisco State University", "photo": "assets/photos/thornton.png" },
-        { "id": "hensill-hall", "order": 6, "title": "Hensill Hall", "subtitle": "Biology + life sciences", "description": "Houses Biology and life science programs with teaching and research labs supporting hands-on scientific learning. Popular for STEM and pre-health pathways.", "address": "Hensill Hall, San Francisco State University", "photo": "assets/photos/hensill.png" },
-        { "id": "seic", "order": 7, "title": "Science & Engineering Innovation Center", "subtitle": "Modern labs + project-based learning", "description": "Supports engineering and applied sciences with collaborative labs and modern research spaces designed for hands-on, project-based learning.", "address": "Science & Engineering Innovation Center, San Francisco State University", "photo": "assets/photos/seic.png" },
-        { "id": "science-building", "order": 8, "title": "Science Building", "subtitle": "STEM classrooms + labs", "description": "A key hub for science instruction and student learning, with classrooms and lab spaces that support hands-on coursework.", "address": "Science Building, San Francisco State University", "photo": "assets/photos/science-building.png" },
-        { "id": "hss", "order": 9, "title": "Health & Social Sciences (HSS) Building", "subtitle": "Wellness + social impact careers", "description": "Houses programs like Public Health, Social Work, and other community-focused disciplines. Encourages interdisciplinary collaboration and prepares students for impact-driven careers.", "address": "Health & Social Sciences Building, San Francisco State University", "photo": "assets/photos/hss.png" },
-        { "id": "business", "order": 10, "title": "Lam Family College of Business", "subtitle": "Career readiness + FogCam", "description": "Supports majors like Finance, Marketing, Accounting, and Management with advising and career development resources. Inside is the SFSU FogCam — wave toward the windows and check it live at fogcam.org.", "address": "Lam Family College of Business, San Francisco State University", "photo": "assets/photos/business.png" },
-        { "id": "administration-uac", "order": 11, "title": "Administration Building & Undergraduate Advising Center (UAC)", "subtitle": "Academic planning + guidance", "description": "Houses university leadership offices and key administrative services. The Undergraduate Advising Center (UAC) supports general education planning and graduation advising.", "address": "Administration Building, San Francisco State University", "photo": "assets/photos/admin.png" },
-        { "id": "library", "order": 12, "title": "J. Paul Leonard Library & Sutro Library", "subtitle": "Study, tech lending, archives", "description": "A major research and learning hub with study spaces, technology lending, archives, and digital media labs. The Sutro Library inside features rare books and historical materials.", "address": "J. Paul Leonard Library, San Francisco State University", "photo": "assets/photos/library.png" },
-        { "id": "quad", "order": 13, "title": "The Quad", "subtitle": "Central campus green", "description": "A central green space for studying, relaxing, and campus events. Students gather here between classes and during celebrations throughout the year.", "address": "Quad, San Francisco State University", "photo": "assets/photos/quad.png" },
-        { "id": "student-center", "order": 14, "title": "Cesar Chavez Student Center", "subtitle": "Student life hub + Bookstore", "description": "Central hub for student life with dining options, lounges, student organization offices, meeting rooms, and the SFSU Bookstore. Many campus events take place here throughout the year.", "address": "Cesar Chavez Student Center, San Francisco State University", "photo": "assets/photos/cesar-chavez.png" },
-        { "id": "creative-arts", "order": 15, "title": "Creative Arts Building", "subtitle": "Music + Theatre & Dance", "description": "Home to the School of Music and the School of Theatre & Dance with performance venues like McKenna Theatre and rehearsal studios for hands-on learning.", "address": "Creative Arts Building, San Francisco State University", "photo": "assets/photos/creative-arts.png" },
-        { "id": "fine-arts", "order": 16, "title": "Fine Arts Building", "subtitle": "Cinema, art, design", "description": "Home to Cinema, Art, and Design with screening rooms, studio spaces, and digital media labs. Students develop creative skills through hands-on production.", "address": "Fine Arts Building, San Francisco State University", "photo": "assets/photos/fine-arts.png" },
-        { "id": "marcus-hall", "order": 17, "title": "Marcus Hall", "subtitle": "BECA media production", "description": "Houses Broadcast and Electronic Communication Arts (BECA). Students gain hands-on experience in media production, broadcasting, and digital storytelling using pro-grade studios and labs.", "address": "Marcus Hall, San Francisco State University", "photo": "assets/photos/marcus.png" },
-        { "id": "humanities", "order": 18, "title": "Humanities Building", "subtitle": "Poetry Center + languages", "description": "Houses Liberal & Creative Arts departments including English, History, and Philosophy, plus the Poetry Center and American Language Institute.", "address": "Humanities Building, San Francisco State University", "photo": "assets/photos/humanities.png" },
-        { "id": "west-grove", "order": 19, "title": "West Grove Commons", "subtitle": "West campus gathering + dining area", "description": "A west campus residential and community space with dining and gathering areas that support student life and campus connection.", "address": "West Grove Commons, San Francisco State University", "photo": "assets/photos/west-grove.png" },
-        { "id": "yerba-buena", "order": 20, "title": "Yerba Buena Dining Hall", "subtitle": "Residential dining (west campus)", "description": "Serves students living in the west campus housing communities, offering flexible meal options and diverse food stations.", "address": "Yerba Buena Dining Hall, San Francisco State University", "photo": "assets/photos/yerba-buena.png" },
-        { "id": "gator-health", "order": 21, "title": "Gator Health Center", "subtitle": "Medical + wellness care", "description": "Provides medical care, lab services, X-rays, and wellness resources to enrolled students. Many services are covered through the student health fee.", "address": "Gator Health Center, San Francisco State University", "photo": "assets/photos/gator-health.png" },
-        { "id": "mashouf", "order": 22, "title": "Mashouf Wellness Center", "subtitle": "Fitness + recreation", "description": "Comprehensive recreation and fitness facility with a climbing wall, indoor pool, track, weight rooms, and studios. Offers sports, group fitness, and wellness programming.", "address": "Mashouf Wellness Center, San Francisco State University", "photo": "assets/photos/mashouf.png" },
 
-        {
-          "id": "towers",
-          "order": 23,
-          "title": "Towers at Centennial Square",
-          "subtitle": "First-year suite-style housing",
-          "description": "Suite-style housing primarily for first-year students. Residents share a common living space with semi-private bedrooms, building community during the first year. Nearby are University Park North and South, apartment-style communities for transfer/continuing students with shared kitchens and a more independent living experience.",
-          "address": "Towers at Centennial Square, San Francisco State University",
-          "photo": "assets/photos/towers.png"
-        },
-        {
-          "id": "village",
-          "order": 24,
-          "title": "Village at Centennial Square",
-          "subtitle": "Apartment-style student housing",
-          "description": "Apartment-style housing for transfer, international, and continuing students. Furnished units support a more independent living experience while staying connected to campus. Nearby are University Park North and South, apartment-style communities for transfer/continuing students with shared kitchens.",
-          "address": "Village at Centennial Square, San Francisco State University",
-          "photo": "assets/photos/village.png"
-        },
-        {
-          "id": "manzanita",
-          "order": 25,
-          "title": "Manzanita Square",
-          "subtitle": "Modern apartments near campus",
-          "description": "Apartment-style housing just steps from campus with residential units, retail spaces, and student lounges. Primarily serves upper-division and transfer students.",
-          "address": "Manzanita Square, San Francisco State University",
-          "photo": "assets/photos/manzanita.png"
-        }
+        { "id": "ethnic-studies-psychology", "order": 2, "title": "Ethnic Studies & Psychology Building", "subtitle": "Equity, identity, social justice", "description": "Houses the College of Ethnic Studies — the first of its kind in the nation — and the Psychology Department. Programs explore identity, equity, social justice, and human behavior.", "address": "Ethnic Studies & Psychology Building, San Francisco State University", "photo": "assets/photos/ethnic-studies.png", "navUrl": "https://maps.app.goo.gl/cyMRRhsUjhqpXC1B7?g_st=ic" },
+
+        { "id": "burk-hall", "order": 3, "title": "Burk Hall", "subtitle": "Nursing + classrooms", "description": "Home to Nursing and other academic programs, classroom space, faculty offices, and academic resources. Many students take courses here throughout their time at SFSU.", "address": "Burk Hall, San Francisco State University", "photo": "assets/photos/burk-hall.png" },
+
+        { "id": "gymnasium", "order": 4, "title": "Gymnasium", "subtitle": "Athletics + Kinesiology", "description": "Supports Athletics and Kinesiology with indoor courts, fitness and training areas. Outside near Don Nasser Family Plaza is the Ally Gator Spirit Statue — a favorite photo spot.", "address": "Gymnasium, San Francisco State University", "photo": "assets/photos/gymnasium.png", "navUrl": "https://maps.app.goo.gl/co357nChra97icxW8?g_st=ic" },
+
+        { "id": "thornton-hall", "order": 5, "title": "Thornton Hall", "subtitle": "Science & Engineering + Planetarium", "description": "Home to the College of Science & Engineering with lecture halls, labs, and the campus Planetarium. Students across STEM majors complete foundational coursework here.", "address": "Thornton Hall, San Francisco State University", "photo": "assets/photos/thornton-hall.png" },
+
+        { "id": "science-building", "order": 6, "title": "Science Building", "subtitle": "STEM learning + labs", "description": "Science Building stop (label placeholder). We can refine the name and description once you confirm which building you meant to include.", "address": "Science Building, San Francisco State University", "photo": "assets/photos/science-building.png" },
+
+        { "id": "hensill-hall", "order": 7, "title": "Hensill Hall", "subtitle": "Biology + life sciences", "description": "Houses Biology and life science programs with teaching and research labs supporting hands-on scientific learning. Popular for STEM and pre-health pathways.", "address": "Hensill Hall, San Francisco State University", "photo": "assets/photos/hensill-hall.png" },
+
+        { "id": "seic", "order": 8, "title": "Science & Engineering Innovation Center", "subtitle": "Modern labs + project-based learning", "description": "Supports engineering and applied sciences with collaborative labs and modern research spaces designed for hands-on, project-based learning.", "address": "Science & Engineering Innovation Center, San Francisco State University", "photo": "assets/photos/seic.png" },
+
+        { "id": "hss", "order": 9, "title": "Health & Social Sciences (HSS) Building", "subtitle": "Wellness + social impact careers", "description": "Houses programs like Public Health, Social Work, and other community-focused disciplines. Encourages interdisciplinary collaboration and prepares students for impact-driven careers.", "address": "Health & Social Sciences Building, San Francisco State University", "photo": "assets/photos/hss.png" },
+
+        { "id": "business", "order": 10, "title": "Lam Family College of Business", "subtitle": "Career readiness + FogCam", "description": "Supports majors like Finance, Marketing, Accounting, and Management with advising and career development resources. Inside is the SFSU FogCam — wave toward the windows and check it live at fogcam.org.", "address": "Lam Family College of Business, San Francisco State University", "photo": "assets/photos/business.png" },
+
+        { "id": "administration-uac", "order": 11, "title": "Administration Building & Undergraduate Advising Center (UAC)", "subtitle": "Academic planning + guidance", "description": "Houses university leadership offices and key administrative services. The Undergraduate Advising Center (UAC) supports general education planning and graduation advising.", "address": "Administration Building, San Francisco State University", "photo": "assets/photos/administration.png" },
+
+        { "id": "library", "order": 12, "title": "J. Paul Leonard Library & Sutro Library", "subtitle": "Study, tech lending, archives", "description": "A major research and learning hub with study spaces, technology lending, archives, and digital media labs. The Sutro Library inside features rare books and historical materials.", "address": "J. Paul Leonard Library, San Francisco State University", "photo": "assets/photos/library.png" },
+
+        { "id": "quad", "order": 13, "title": "The Quad", "subtitle": "Central campus green", "description": "A central green space for studying, relaxing, and campus events. Students gather here between classes and during celebrations throughout the year.", "address": "Quad, San Francisco State University", "photo": "assets/photos/quad.png" },
+
+        { "id": "student-center", "order": 14, "title": "Cesar Chavez Student Center", "subtitle": "Student life hub + Bookstore", "description": "Central hub for student life with dining options, lounges, student organization offices, meeting rooms, and the Bookstore. Many campus events take place here.", "address": "Cesar Chavez Student Center, San Francisco State University", "photo": "assets/photos/cesar-chavez.png" },
+
+        { "id": "creative-arts", "order": 15, "title": "Creative Arts Building", "subtitle": "Music + Theatre & Dance", "description": "Home to the School of Music and the School of Theatre & Dance with performance venues like McKenna Theatre and rehearsal studios for hands-on learning.", "address": "Creative Arts Building, San Francisco State University", "photo": "assets/photos/creative-arts.png" },
+
+        { "id": "fine-arts", "order": 16, "title": "Fine Arts Building", "subtitle": "Cinema, art, design", "description": "Home to Cinema, Art, and Design with screening rooms, studio spaces, and digital media labs. Students develop creative skills through hands-on production.", "address": "Fine Arts Building, San Francisco State University", "photo": "assets/photos/fine-arts.png" },
+
+        { "id": "marcus-hall", "order": 17, "title": "Marcus Hall", "subtitle": "BECA media production", "description": "Houses Broadcast and Electronic Communication Arts (BECA). Students gain hands-on experience in media production, broadcasting, and digital storytelling using pro-grade studios and labs.", "address": "Marcus Hall, San Francisco State University", "photo": "assets/photos/marcus-hall.png" },
+
+        { "id": "humanities", "order": 18, "title": "Humanities Building", "subtitle": "Poetry Center + languages", "description": "Houses Liberal & Creative Arts departments including English, History, and Philosophy, plus the Poetry Center and American Language Institute.", "address": "Humanities Building, San Francisco State University", "photo": "assets/photos/humanities.png" },
+
+        { "id": "west-grove", "order": 19, "title": "West Grove Commons", "subtitle": "West campus residential community", "description": "West Grove Commons includes residential and dining spaces serving students living in the west campus housing community. It provides convenient access to food options and gathering spaces.", "address": "West Grove Commons, San Francisco State University", "photo": "assets/photos/west-grove.png", "navUrl": "https://maps.app.goo.gl/WNrZy3ytAiFjmfwK7?g_st=ic" },
+
+        { "id": "yerba-buena", "order": 20, "title": "Yerba Buena Dining Hall", "subtitle": "Dining for west campus communities", "description": "Yerba Buena Dining Hall serves students living in the west campus housing communities with diverse stations and flexible meal options.", "address": "Yerba Buena Dining Hall, San Francisco State University", "photo": "assets/photos/yerba-buena.png" },
+
+        { "id": "gator-health", "order": 21, "title": "Gator Health Center", "subtitle": "Student medical care + wellness", "description": "Provides medical care, lab services, X-rays, and wellness resources to enrolled students. Many services are covered through the student health fee.", "address": "Gator Health Center, San Francisco State University", "photo": "assets/photos/gator-health.png" },
+
+        { "id": "monarca-city-eats", "order": 22, "title": "Monarca Dining Hall (City Eats)", "subtitle": "All-you-care-to-eat", "description": "One of the primary dining facilities offering all-you-care-to-eat meals with multiple stations, rotating menus, and options for various dietary needs.", "address": "Monarca Dining Hall (City Eats), San Francisco State University", "photo": "assets/photos/monarca.png" },
+
+        { "id": "mashouf", "order": 23, "title": "Mashouf Wellness Center", "subtitle": "Fitness + recreation", "description": "Comprehensive recreation and fitness facility with a climbing wall, indoor pool, track, weight rooms, and studios. Offers sports, group fitness, and wellness programming.", "address": "Mashouf Wellness Center, San Francisco State University", "photo": "assets/photos/mashouf.png", "navUrl": "https://maps.app.goo.gl/ovMS5iLWf5qL77Ui8?g_st=ic" },
+
+        { "id": "towers", "order": 24, "title": "Towers at Centennial Square", "subtitle": "First-year suite-style housing", "description": "Suite-style housing primarily for first-year students. Residents share a common living space with semi-private bedrooms, building community during the first year.", "address": "Towers at Centennial Square, San Francisco State University", "photo": "assets/photos/towers.png" },
+
+        { "id": "village", "order": 25, "title": "Village at Centennial Square", "subtitle": "Apartment-style student housing", "description": "Apartment-style housing for transfer, international, and continuing students. Furnished units support a more independent living experience while staying connected to campus.", "address": "Village at Centennial Square, San Francisco State University", "photo": "assets/photos/village.png" },
+
+        { "id": "manzanita", "order": 26, "title": "Manzanita Square", "subtitle": "Modern apartments near campus", "description": "Apartment-style housing just steps from campus with residential units, retail spaces, and student lounges. Primarily serves upper-division and transfer students.", "address": "Manzanita Square, San Francisco State University", "photo": "assets/photos/manzanita.png" }
       ]
     }
   ]
