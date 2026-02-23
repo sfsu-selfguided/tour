@@ -252,15 +252,17 @@ a { color: inherit; }
 /* Overlay is bottom-only and translucent */
 .mediaOverlay {
   position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 16px;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+
+  /* Force the overlay to respect the container width on iOS Safari */
+  width: calc(100% - 28px);
+  max-width: none;
 
   padding: 14px 16px;
   border-radius: 18px;
-
   box-sizing: border-box;
-  max-width: calc(100% - 32px);
 
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -268,7 +270,8 @@ a { color: inherit; }
   background: rgba(255, 255, 255, 0.62);
   border: 1px solid rgba(0,0,0,0.08);
 
-  overflow-wrap: anywhere;
+  /* Prevent any clipping/truncation quirks */
+  overflow: visible;
 }
 :root[data-theme="dark"] .mediaOverlay {
   background: rgba(0, 0, 0, 0.46);
