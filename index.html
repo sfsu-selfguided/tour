@@ -5,70 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#4B2E83" />
   <meta name="description" content="Self-guided campus tour for prospective students and families." />
+
   <title>SFSU Self-Guided Campus Tour</title>
 
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="assets/icons/icon-192.png" />
   <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <header class="topbar">
     <div class="topbar__inner">
-      <div class="brand">
-        <div class="brand__title">
-          <span class="brand__stack">SFSU<br/>Self-Guided Campus Tour</span>
-        </div>
+      <div class="brand brand--center">
+        <img
+          class="brand__logo"
+          id="brandLogo"
+          src="logo-purple.png"
+          alt="San Francisco State University"
+          loading="eager"
+        />
+        <div class="brand__title" id="tourTitle">SFSU Self-Guided Campus Tour</div>
         <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
-      </div>
 
-      <div class="topbar__actions">
-        <button class="btn btn--ghost" id="themeToggle" type="button" aria-label="Toggle theme">
-          ☀️ Light mode
-        </button>
+        <div class="brand__actions">
+          <button class="btn btn--ghost" id="themeToggle" type="button">🌙 Dark mode</button>
+        </div>
       </div>
     </div>
   </header>
 
   <main class="container">
     <section class="hero">
-      <div class="hero__logoWrap">
-        <!-- Logos are in repo root -->
-        <img
-          id="schoolLogo"
-          class="hero__logo"
-          src="logo-purple.png"
-          alt="San Francisco State University"
-          loading="eager"
-        />
-      </div>
-
-      <h1 class="hero__title" id="tourTitle">Ready to begin your tour?</h1>
-
-      <p class="hero__desc" id="tourDesc">
-        Welcome! This is a self-guided, outdoor-only walking tour. Choose your tour type below and tap “Navigate” at any stop.
+      <h1 class="hero__title">Ready to begin your tour?</h1>
+      <p class="hero__desc" id="heroWelcome">
+        Welcome to San Francisco State University! This is a self-guided, <strong>outdoor-only</strong> walking tour.
+        Tap “Navigate” at any stop.
       </p>
 
       <div class="hero__cta hero__cta--stack">
-        <label class="tourPicker">
-          <span class="tourLabel">Tour:</span>
-          <select id="tourSelect" class="select" aria-label="Select tour">
+        <div class="tourPicker">
+          <span class="tourPicker__label"><strong>Tour</strong></span>
+          <select id="tourSelect" class="select">
             <!-- injected by app.js -->
           </select>
-        </label>
+        </div>
 
-        <div class="mapLink" id="mapLinkWrap" hidden>
-          <a class="link mapLink__a" id="campusMapLink" href="#" target="_blank" rel="noopener">
-            View campus map (building labels)
+        <div id="mapLinkRow" class="mapLinkRow" hidden>
+          <a class="link" id="mapLink" href="#" target="_blank" rel="noopener">
+            View campus map
           </a>
         </div>
+
+        <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
+          Open Full Route in Google Maps
+        </a>
       </div>
 
-      <section id="introCallout"></section>
-      <section id="nextSteps"></section>
-
       <div class="status" id="statusBar" aria-live="polite"></div>
+
+      <section id="introCallout"></section>
     </section>
 
     <section class="controls">
@@ -88,6 +85,12 @@
     </section>
 
     <section class="grid" id="stopsGrid" aria-label="Tour stops"></section>
+
+    <!-- End-of-tour sections (AFTER stops) -->
+    <section class="endSections">
+      <section id="outroCallout"></section>
+      <section id="nextSteps"></section>
+    </section>
 
     <footer class="footer">
       <div>
