@@ -2,12 +2,9 @@ const $ = (sel) => document.querySelector(sel);
 
 const STORAGE_KEYS = {
   visited: "sfsuTour.visitedStopIds",
-  activeTour: "sfsuTour.activeTourId"
+  activeTour: "sfsuTour.activeTourId",
 };
 
-/* =========
-   Theme toggle (light/dark) + logo swap
-   ========= */
 const THEME_KEY = "sfsuTour.theme"; // "light" | "dark" | "system"
 
 function getSystemTheme() {
@@ -16,27 +13,18 @@ function getSystemTheme() {
     : "light";
 }
 
-function setLogoForTheme(t) {
-  const logo = $("#brandLogo");
-  if (!logo) return;
-
-  // Your files are in repo root:
-  // - logo-purple.png (light)
-  // - logo-white.png  (dark)
-  logo.src = t === "dark" ? "logo-white.png" : "logo-purple.png";
-}
-
 function applyTheme(theme) {
   const t = theme === "system" ? getSystemTheme() : theme;
   document.documentElement.dataset.theme = t;
 
-  setLogoForTheme(t);
-
   const btn = $("#themeToggle");
   if (btn) {
-    btn.textContent = t === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
+    btn.textContent = t === "dark" ? "🌙 Dark mode" : "☀️ Light mode";
     btn.setAttribute("aria-label", `Theme: ${t}. Tap to toggle.`);
   }
+
+  const logo = $("#brandLogo");
+  if (logo) logo.src = t === "dark" ? "logo-white.png" : "logo-purple.png";
 }
 
 function setupThemeToggle() {
@@ -61,9 +49,6 @@ function setupThemeToggle() {
   }
 }
 
-/* =========
-   Visited state
-   ========= */
 function loadVisitedSet() {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.visited);
@@ -73,6 +58,7 @@ function loadVisitedSet() {
     return new Set();
   }
 }
+
 function saveVisitedSet(set) {
   localStorage.setItem(STORAGE_KEYS.visited, JSON.stringify([...set]));
 }
@@ -86,9 +72,7 @@ function normalize(str) {
   return (str || "").toString().trim().toLowerCase();
 }
 
-/* =========
-   Navigation URL (precise links if provided)
-   ========= */
+/* Navigation URL: prefer stop.navUrl */
 function buildStopNavUrl(stop) {
   if (stop && typeof stop.navUrl === "string" && stop.navUrl.trim()) {
     return stop.navUrl.trim();
@@ -100,10 +84,8 @@ function buildStopNavUrl(stop) {
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
-/* =========
-   Callouts + end sections
-   ========= */
-function renderCallout(mountSelector, callout) {
+/* Callout renderer */
+function renderCallout(mountSelector, callout, { calloutStyleClass = "" } = {}) {
   const mount = $(mountSelector);
   if (!mount) return;
 
@@ -125,7 +107,7 @@ function renderCallout(mountSelector, callout) {
     : "";
 
   mount.innerHTML = `
-    <div class="card">
+    <div class="card ${calloutStyleClass}">
       <div class="card__media" style="${firstImg ? "" : "display:none;"}">
         ${firstImg ? `<img class="card__img" src="${firstImg}" alt="${callout.title || "Callout"}" loading="lazy" />` : ""}
         ${overlay}
@@ -148,72 +130,84 @@ function renderCallout(mountSelector, callout) {
 }
 
 function renderIntroCallout(data) {
-  renderCallout("#introCallout", data?.pageSections?.introCallout);
+  renderCallout("#introCallout", data?.pageSections?.introCallout, { calloutStyleClass: "card--callout" });
 }
 
-function renderOutro(data) {
-  const out = $("#outroCallout");
-  if (!out) return;
-
-  const o = data?.pageSections?.outroCallout;
-  if (!o) {
-    out.innerHTML = "";
-    return;
-  }
-
-  const imgs = Array.isArray(o.images) ? o.images : [];
-  out.innerHTML = `
-    <details class="accordion">
-      <summary>${o.title || "Hidden gators"}</summary>
-      <div class="accordion__body">
-        <p style="margin:0; color:var(--muted); line-height:1.4;">
-          ${o.text || ""}
-        </p>
-        <div class="gatorsRow">
-          ${imgs.map((src) => `<img class="gatorThumb" src="${src}" alt="Hidden gator" loading="lazy" />`).join("")}
-        </div>
-      </div>
-    </details>
-  `;
-}
-
-function renderNextSteps(data) {
-  const mount = $("#nextSteps");
+/* Hidden gators (small thumbnails) */
+function renderHiddenGators(data) {
+  const mount = $("#hiddenGators");
   if (!mount) return;
 
-  const s = data?.pageSections?.nextSteps;
-  if (!s) {
+  const g = data?.pageSections?.hiddenGators;
+  if (!g) {
     mount.innerHTML = "";
     return;
   }
 
-  const links = Array.isArray(s.links) ? s.links : [];
+  const imgs = Array.isArray(g.images) ? g.images : [];
+  const thumbs = imgs
+    .slice(0, 3)
+    .map((src) => `<div class="gators__thumb"><img src="${src}" alt="Hidden gator" loading="lazy" /></div>`)
+    .join("");
+
   mount.innerHTML = `
-    <details class="accordion">
-      <summary>${s.title || "Ready for next steps?"}</summary>
-      <div class="accordion__body">
-        <p style="margin:0; color:var(--muted); line-height:1.4;">
-          ${s.text || ""}
-        </p>
-        <div class="linkList">
-          ${links.map((l) => `
-            <div class="linkItem">
-              <div>
-                <div style="font-weight:900;">${l.label || "Link"}</div>
-                ${l.subtext ? `<div style="color:var(--muted); font-size:13px; margin-top:3px;">${l.subtext}</div>` : ""}
-              </div>
-              <a class="link" href="${l.url}" target="_blank" rel="noopener">Open</a>
-            </div>
-          `).join("")}
-        </div>
+    <div class="card">
+      <div class="card__body gators">
+        <h2 class="gators__title">${g.title || "Hidden gators"}</h2>
+        <p class="gators__text">${g.text || ""}</p>
+        <div class="gators__strip">${thumbs}</div>
       </div>
-    </details>
+    </div>
   `;
 }
 
-/* =========
-   Stops rendering
-   ========= */
+/* Next steps accordion at end */
+function renderNextSteps(data) {
+  const mount = $("#nextSteps");
+  if (!mount) return;
+
+  const ns = data?.pageSections?.nextSteps;
+  if (!ns) {
+    mount.innerHTML = "";
+    return;
+  }
+
+  const links = Array.isArray(ns.links) ? ns.links : [];
+
+  const items = links
+    .map(
+      (l) => `
+      <a class="linkItem" href="${l.url}" target="_blank" rel="noopener">
+        ${l.text}
+      </a>`
+    )
+    .join("");
+
+  mount.innerHTML = `
+    <div class="card nextStepsCard">
+      <div class="card__body">
+        <button class="accordion__btn" id="nextStepsBtn" type="button" aria-expanded="false">
+          <span>${ns.title || "Ready for next steps?"}</span>
+          <span aria-hidden="true">▾</span>
+        </button>
+        <div class="accordion__panel" id="nextStepsPanel">
+          ${items}
+        </div>
+      </div>
+    </div>
+  `;
+
+  const btn = $("#nextStepsBtn");
+  const panel = $("#nextStepsPanel");
+  if (btn && panel) {
+    btn.addEventListener("click", () => {
+      const isOpen = panel.style.display === "block";
+      panel.style.display = isOpen ? "none" : "block";
+      btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+    });
+  }
+}
+
 function renderStops({ tour, visitedSet, hideVisited, query }) {
   const grid = $("#stopsGrid");
   const template = $("#stopCardTemplate");
@@ -292,7 +286,7 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
           tour,
           visitedSet,
           hideVisited: $("#hideVisitedToggle")?.checked,
-          query: $("#searchInput")?.value
+          query: $("#searchInput")?.value,
         });
       });
     }
@@ -301,9 +295,7 @@ function renderStops({ tour, visitedSet, hideVisited, query }) {
   }
 }
 
-/* =========
-   Online status
-   ========= */
+/* Online status */
 function setOnlineUI() {
   const dot = $("#onlineDot");
   const txt = $("#onlineText");
@@ -316,21 +308,18 @@ function setOnlineUI() {
 window.addEventListener("online", setOnlineUI);
 window.addEventListener("offline", setOnlineUI);
 
-/* =========
-   Data loading
-   ========= */
+/* Data load */
 async function loadTourData() {
   const res = await fetch("./stops.json", { cache: "no-store" });
   if (!res.ok) throw new Error("Could not load stops.json");
   return res.json();
 }
-
 function getToursFromData(data) {
   if (Array.isArray(data.tours) && data.tours.length) return data.tours;
   if (Array.isArray(data.stops)) {
     return [{
       id: "default",
-      name: "Without Housing",
+      name: data.tourSubtitle || "Campus Tour",
       description: data.tourDescription || "",
       routeUrl: data.routeUrl || "",
       stops: data.stops
@@ -339,32 +328,11 @@ function getToursFromData(data) {
   return [];
 }
 
-function setHeaderFromTour(data, tour) {
-  const titleEl = $("#tourTitle");
+function setHeaderFromTour(tour) {
   const metaEl = $("#tourMeta");
-  if (titleEl) titleEl.textContent = data.appName || "SFSU Self-Guided Campus Tour";
-  if (metaEl) metaEl.textContent = `SFSU Self-Guided Campus Tour — ${tour.name || "Tour"}`;
+  if (metaEl) metaEl.textContent = tour.name || "Self-guided tour";
 }
 
-function setMapLinkForTour(data, tour) {
-  const row = $("#mapLinkRow");
-  const a = $("#mapLink");
-  if (!row || !a) return;
-
-  // One map for both tours (your preference)
-  const url = data?.pageSections?.mapLink?.url;
-  if (url) {
-    a.href = url;
-    a.textContent = data?.pageSections?.mapLink?.label || "View campus map";
-    row.hidden = false;
-  } else {
-    row.hidden = true;
-  }
-}
-
-/* =========
-   Main
-   ========= */
 async function main() {
   setupThemeToggle();
   setOnlineUI();
@@ -381,8 +349,6 @@ async function main() {
     const data = await loadTourData();
 
     renderIntroCallout(data);
-    renderOutro(data);
-    renderNextSteps(data);
 
     const tours = getToursFromData(data);
     if (!tours.length) throw new Error("No tours found in stops.json");
@@ -391,12 +357,13 @@ async function main() {
     const savedTourId = localStorage.getItem(STORAGE_KEYS.activeTour);
     let activeTour = tours.find((t) => t.id === savedTourId) || tours[0];
 
+    // Populate dropdown with the names you want
     if (tourSelect) {
       tourSelect.innerHTML = "";
       for (const t of tours) {
         const opt = document.createElement("option");
         opt.value = t.id;
-        opt.textContent = t.name || t.id;
+        opt.textContent = t.id === "full" ? "With Housing" : "Without Housing";
         if (t.id === activeTour.id) opt.selected = true;
         tourSelect.appendChild(opt);
       }
@@ -411,20 +378,28 @@ async function main() {
     }
 
     function updateForTour(tour) {
-      setHeaderFromTour(data, tour);
-      setMapLinkForTour(data, tour);
+      setHeaderFromTour(tour);
 
-      const routeBtn = $("#openRouteBtn");
-      if (routeBtn) {
-        routeBtn.href = tour.routeUrl || "https://www.google.com/maps";
+      // Map link directly under tour type
+      const mapWrap = $("#mapLinkWrap");
+      const mapLink = $("#campusMapLink");
+      if (mapWrap && mapLink) {
+        // Use your plain map (one version for both tours)
+        mapLink.href = "assets/maps/campus-map.pdf";
+        mapWrap.hidden = false;
       }
 
+      // Render stops
       renderStops({
         tour,
         visitedSet,
         hideVisited: $("#hideVisitedToggle")?.checked,
-        query: $("#searchInput")?.value
+        query: $("#searchInput")?.value,
       });
+
+      // End-of-tour sections (always after stops)
+      renderHiddenGators(data);
+      renderNextSteps(data);
     }
 
     $("#hideVisitedToggle")?.addEventListener("change", () => updateForTour(activeTour));
