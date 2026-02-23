@@ -363,7 +363,7 @@ async function main() {
       for (const t of tours) {
         const opt = document.createElement("option");
         opt.value = t.id;
-        opt.textContent = t.id === "full" ? "With Housing" : "Without Housing";
+        opt.textContent = t.id === "full" ? "With Housing" : "With Housing";
         if (t.id === activeTour.id) opt.selected = true;
         tourSelect.appendChild(opt);
       }
