@@ -1,131 +1,353 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#4B2E83" />
-  <meta name="description" content="Self-guided campus tour for prospective students and families." />
+:root {
+  --sfsu-purple: #4B2E83;
+  --sfsu-gold: #F6BE00;
 
-  <title>SFSU Self-Guided Campus Tour</title>
+  --bg: #f7f7fb;
+  --card: #ffffff;
+  --text: #101018;
+  --muted: rgba(16, 16, 24, 0.70);
+  --border: rgba(16, 16, 24, 0.12);
 
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="assets/icons/icon-192.png" />
-  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+  --shadow: 0 10px 30px rgba(16, 16, 24, 0.10);
 
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  --primary: var(--sfsu-purple);
+  --primaryText: #ffffff;
+  --secondaryBg: rgba(75, 46, 131, 0.08);
+}
 
-<body>
-  <header class="topbar">
-    <div class="topbar__inner">
-      <div class="brand brand--center">
-        <img
-          class="brand__logo"
-          id="brandLogo"
-          src="logo-purple.png"
-          alt="San Francisco State University"
-          loading="eager"
-        />
-        <div class="brand__title" id="tourTitle">SFSU Self-Guided Campus Tour</div>
-        <div class="brand__subtitle" id="tourMeta">Loading tour…</div>
+:root[data-theme="dark"] {
+  --bg: #0b0b11;
+  --card: #151521;
+  --text: #f4f4ff;
+  --muted: rgba(244, 244, 255, 0.74);
+  --border: rgba(244, 244, 255, 0.14);
 
-        <div class="brand__actions">
-          <button class="btn btn--ghost" id="themeToggle" type="button">🌙 Dark mode</button>
-        </div>
-      </div>
-    </div>
-  </header>
+  --shadow: 0 12px 34px rgba(0,0,0,0.45);
+  --secondaryBg: rgba(246, 190, 0, 0.12);
+}
 
-  <main class="container">
-    <section class="hero">
-      <h1 class="hero__title">Ready to begin your tour?</h1>
-      <p class="hero__desc" id="heroWelcome">
-        Welcome to San Francisco State University! This is a self-guided, <strong>outdoor-only</strong> walking tour.
-        Tap “Navigate” at any stop.
-      </p>
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
 
-      <div class="hero__cta hero__cta--stack">
-        <div class="tourPicker">
-          <span class="tourPicker__label"><strong>Tour</strong></span>
-          <select id="tourSelect" class="select">
-            <!-- injected by app.js -->
-          </select>
-        </div>
+a { color: inherit; }
+.link { color: var(--primary); text-decoration: none; font-weight: 800; }
+.link:hover { text-decoration: underline; }
 
-        <div id="mapLinkRow" class="mapLinkRow" hidden>
-          <a class="link" id="mapLink" href="#" target="_blank" rel="noopener">
-            View campus map
-          </a>
-        </div>
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 14px 14px 60px;
+}
 
-        <a class="btn btn--primary" id="openRouteBtn" href="#" target="_blank" rel="noopener">
-          Open Full Route in Google Maps
-        </a>
-      </div>
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+:root[data-theme="dark"] .topbar { background: rgba(11,11,17,0.75); }
 
-      <div class="status" id="statusBar" aria-live="polite"></div>
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  max-width: 980px;
+  margin: 0 auto;
+}
 
-      <section id="introCallout"></section>
-    </section>
+.brand__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand__logo {
+  width: 44px;
+  height: auto;
+  display: block;
+}
+.brand__title {
+  font-weight: 950;
+  letter-spacing: 0.2px;
+  line-height: 1.1;
+}
+.brand__subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 3px;
+}
 
-    <section class="controls">
-      <div class="search">
-        <input id="searchInput" type="search" placeholder="Search stops (e.g., library, gym, admissions)…" />
-      </div>
+.btn {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-weight: 850;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn--primary {
+  background: var(--primary);
+  color: var(--primaryText);
+  border-color: rgba(0,0,0,0.0);
+}
+.btn--secondary { background: var(--secondaryBg); }
+.btn--ghost { background: transparent; }
 
-      <div class="toggles">
-        <label class="toggle">
-          <input type="checkbox" id="hideVisitedToggle" />
-          <span>Hide visited</span>
-        </label>
-        <button class="btn btn--ghost" id="resetVisitedBtn" type="button">
-          Reset visited
-        </button>
-      </div>
-    </section>
+.hero { margin-top: 10px; }
+.hero__title {
+  margin: 6px 0 8px;
+  font-size: 28px;
+  line-height: 1.15;
+  text-align: center;
+}
+.hero__desc {
+  margin: 0 auto 12px;
+  max-width: 760px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.45;
+}
 
-    <section class="grid" id="stopsGrid" aria-label="Tour stops"></section>
+.hero__cta--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
 
-    <!-- End-of-tour sections (AFTER stops) -->
-    <section class="endSections">
-      <section id="outroCallout"></section>
-      <section id="nextSteps"></section>
-    </section>
+.tourPicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tourLabel {
+  font-weight: 950;
+  font-size: 16px;
+}
 
-    <footer class="footer">
-      <div>
-        <span class="dot" id="onlineDot" title="Network status"></span>
-        <span id="onlineText">Checking connection…</span>
-      </div>
-      <div class="footer__right">
-        <a class="link" href="#" id="reloadBtn">Reload</a>
-      </div>
-    </footer>
-  </main>
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: transparent;
+  color: inherit;
+  font-weight: 850;
+}
 
-  <template id="stopCardTemplate">
-    <article class="card">
-      <div class="card__media">
-        <img class="card__img" alt="" loading="lazy" />
-        <div class="card__badge" hidden>Visited</div>
-      </div>
+.mapLink {
+  font-size: 14px;
+  margin-top: 2px;
+}
+.mapLink__a { display: inline-flex; align-items: center; gap: 8px; }
 
-      <div class="card__body">
-        <div class="card__top">
-          <h2 class="card__title"></h2>
-          <p class="card__subtitle"></p>
-        </div>
+.status {
+  margin-top: 10px;
+  min-height: 18px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+}
 
-        <p class="card__desc"></p>
+.controls {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.search input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-weight: 750;
+}
 
-        <div class="card__actions">
-          <a class="btn btn--secondary card__nav" href="#" target="_blank" rel="noopener">Navigate</a>
-          <button class="btn btn--ghost card__visitedBtn" type="button">Mark visited</button>
-        </div>
-      </div>
-    </article>
-  </template>
+.toggles {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.toggle { display: flex; gap: 10px; align-items: center; color: var(--muted); font-weight: 850; }
 
-  <script src="app.js" defer></script>
-</body>
-</html>
+.grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 760px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.card__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: rgba(0,0,0,0.05);
+}
+.card__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.card__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.70);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 950;
+  font-size: 12px;
+}
+
+.card__body { padding: 14px; }
+.card__title { margin: 0; font-size: 18px; font-weight: 950; }
+.card__subtitle { margin: 6px 0 0; color: var(--muted); font-weight: 850; font-size: 13px; }
+.card__desc { margin: 10px 0 0; color: var(--text); line-height: 1.4; }
+.card__actions { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Callout card is taller so emergency phone is visible */
+.card--callout .card__media { min-height: 240px; }
+@media (min-width: 760px) {
+  .card--callout .card__media { min-height: 320px; }
+}
+
+/* Overlay is bottom-only and translucent */
+.mediaOverlay {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+:root[data-theme="dark"] .mediaOverlay {
+  background: rgba(0, 0, 0, 0.46);
+  border-color: rgba(255,255,255,0.14);
+}
+.mediaOverlay__title { margin: 0 0 6px; font-size: 16px; font-weight: 950; }
+.mediaOverlay__text { margin: 0; font-size: 14px; line-height: 1.35; }
+
+/* End-of-tour wrapper */
+#outroWrap {
+  margin-top: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+/* Hidden gators: small thumbnails */
+.gators { padding: 14px; }
+.gators__title { margin: 0; font-size: 18px; font-weight: 950; }
+.gators__text { margin: 8px 0 12px; color: var(--muted); line-height: 1.35; }
+.gators__strip { display: flex; gap: 10px; flex-wrap: wrap; }
+.gators__thumb {
+  width: 86px;
+  height: 66px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.06);
+}
+.gators__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Next steps: stand out */
+.nextStepsCard {
+  border: 2px solid rgba(246,190,0,0.55);
+  background:
+    radial-gradient(1200px 200px at 20% 0%, rgba(246,190,0,0.22), transparent 60%),
+    radial-gradient(900px 260px at 90% 20%, rgba(75,46,131,0.18), transparent 65%),
+    var(--card);
+}
+:root[data-theme="dark"] .nextStepsCard {
+  border-color: rgba(246,190,0,0.42);
+}
+
+.accordion__btn {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(75,46,131,0.10);
+  color: inherit;
+  font-weight: 950;
+  cursor: pointer;
+}
+:root[data-theme="dark"] .accordion__btn {
+  background: rgba(246,190,0,0.14);
+}
+
+.accordion__panel {
+  margin-top: 10px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  display: none;
+  background: rgba(0,0,0,0.02);
+}
+:root[data-theme="dark"] .accordion__panel { background: rgba(255,255,255,0.03); }
+
+.linkItem {
+  display: block;
+  padding: 10px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 850;
+}
+.linkItem:hover { background: rgba(0,0,0,0.05); }
+:root[data-theme="dark"] .linkItem:hover { background: rgba(255,255,255,0.06); }
+
+.footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+  font-weight: 850;
+  font-size: 13px;
+}
+.dot { width: 10px; height: 10px; border-radius: 999px; display: inline-block; margin-right: 8px; }
