@@ -272,7 +272,7 @@ a { color: inherit; }
   right: 12px;
   bottom: 12px;
 
-  padding: 14px;
+  padding: 12px;
   border-radius: 16px;
 
   backdrop-filter: blur(7px);
@@ -280,8 +280,10 @@ a { color: inherit; }
 
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid rgba(0,0,0,0.08);
-
-  box-sizing: border-box;
+}
+:root[data-theme="dark"] .mediaOverlay {
+  background: rgba(0, 0, 0, 0.46);
+  border-color: rgba(255,255,255,0.14);
 }
 :root[data-theme="dark"] .mediaOverlay {
   background: rgba(0, 0, 0, 0.46);
