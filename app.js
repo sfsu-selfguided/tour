@@ -346,8 +346,7 @@ async function main() {
     setStatus("Loading…");
     const data = await loadTourData();
 
-    renderIntroCallout(data);
-
+  
     const tours = getToursFromData(data);
     if (!tours.length) throw new Error("No tours found in stops.json");
 
