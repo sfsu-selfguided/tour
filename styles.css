@@ -268,19 +268,25 @@ a { color: inherit; }
 /* Overlay is bottom-only and translucent */
 .mediaOverlay {
   position: absolute;
-  left: 12px;
-  right: 12px;
   bottom: 12px;
 
-  /* NEW: extra safety so it never exceeds the media width on iOS */
+  /* iOS-safe sizing */
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
   max-width: calc(100% - 24px);
 
   padding: 12px;
   border-radius: 16px;
+
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
+
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid rgba(0,0,0,0.08);
+
+  /* Helps Safari render correctly */
+  box-sizing: border-box;
 }
 :root[data-theme="dark"] .mediaOverlay {
   background: rgba(0, 0, 0, 0.46);
