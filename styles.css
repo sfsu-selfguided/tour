@@ -293,7 +293,6 @@ a { color: inherit; }
   font-weight: 950;
   white-space: normal;
   overflow-wrap: break-word;
-  word-break: break-word;
 }
 
 .mediaOverlay__text {
@@ -302,7 +301,6 @@ a { color: inherit; }
   line-height: 1.35;
   white-space: normal;
   overflow-wrap: break-word;
-  word-break: break-word;
 }
 :root {
   --sfsu-purple: #4B2E83;
