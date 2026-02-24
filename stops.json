@@ -19,11 +19,11 @@
     },
     "hiddenGators": {
   "title": "All done with your tour? 🐊",
-  "text": "Did you spot any of our hidden gators? There are three! (They’re small — keep an eye out 👀)",
+  "text": "Did you spot any of our hidden gators? There are three! (You have to use your imagination!)",
   "images": [
-    "assets/photos/gator-1.png",
-    "assets/photos/gator-2.png",
-    "assets/photos/gator-3.png"
+    "assets/photos/gator-1.jpg",
+    "assets/photos/gator-2.jpg",
+    "assets/photos/gator-3.jpg"
   ]
 },
     "map": {
