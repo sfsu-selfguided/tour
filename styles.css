@@ -157,9 +157,25 @@ a { color: inherit; }
 
 .mapLink {
   font-size: 14px;
-  margin-top: 2px;
+  margin-top: 8px;
+  margin-bottom: 10px; /* NEW: gives breathing room before emergency card */
 }
-.mapLink__a { display: inline-flex; align-items: center; gap: 8px; }
+
+.mapLink__a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  /* NEW: make it look like a little pill button */
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--secondaryBg);
+  font-weight: 950;
+}
+:root[data-theme="dark"] .mapLink__a {
+  background: rgba(246, 190, 0, 0.14);
+}
 
 .status {
   margin-top: 10px;
@@ -252,26 +268,19 @@ a { color: inherit; }
 /* Overlay is bottom-only and translucent */
 .mediaOverlay {
   position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 14px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
 
-  /* Force the overlay to respect the container width on iOS Safari */
-  width: calc(100% - 28px);
-  max-width: none;
+  /* NEW: extra safety so it never exceeds the media width on iOS */
+  max-width: calc(100% - 24px);
 
-  padding: 14px 16px;
-  border-radius: 18px;
-  box-sizing: border-box;
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  background: rgba(255, 255, 255, 0.62);
+  padding: 12px;
+  border-radius: 16px;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  background: rgba(255, 255, 255, 0.55);
   border: 1px solid rgba(0,0,0,0.08);
-
-  /* Prevent any clipping/truncation quirks */
-  overflow: visible;
 }
 :root[data-theme="dark"] .mediaOverlay {
   background: rgba(0, 0, 0, 0.46);
@@ -291,6 +300,13 @@ a { color: inherit; }
   max-width: 100%;
   word-break: break-word;
   overflow-wrap: anywhere;
+}
+.mediaOverlay__title,
+.mediaOverlay__text {
+  /* NEW: force wrapping on iOS Safari */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* End-of-tour wrapper */
