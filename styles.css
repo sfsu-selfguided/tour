@@ -270,11 +270,15 @@ a { color: inherit; }
   position: absolute;
   bottom: 12px;
 
-  /* iOS-safe sizing */
+  /* primary layout: iOS-safe centered block */
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 24px);
-  max-width: calc(100% - 24px);
+
+  /* hard safety so Safari never mis-measures */
+  right: 12px;
+  margin-left: auto;
+  margin-right: auto;
 
   padding: 12px;
   border-radius: 16px;
@@ -285,8 +289,8 @@ a { color: inherit; }
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid rgba(0,0,0,0.08);
 
-  /* Helps Safari render correctly */
   box-sizing: border-box;
+  overflow: hidden; /* prevents any bleed-off */
 }
 :root[data-theme="dark"] .mediaOverlay {
   background: rgba(0, 0, 0, 0.46);
@@ -296,22 +300,17 @@ a { color: inherit; }
   margin: 0 0 6px;
   font-size: 16px;
   font-weight: 950;
-  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .mediaOverlay__text {
   margin: 0;
   font-size: 14px;
   line-height: 1.35;
-  max-width: 100%;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-.mediaOverlay__title,
-.mediaOverlay__text {
-  /* NEW: force wrapping on iOS Safari */
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   word-break: break-word;
 }
 :root {
