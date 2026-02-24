@@ -129,9 +129,7 @@ function renderCallout(mountSelector, callout, { calloutStyleClass = "" } = {}) 
   `;
 }
 
-function renderIntroCallout(data) {
-  renderCallout("#introCallout", data?.pageSections?.introCallout, { calloutStyleClass: "card--callout" });
-}
+
 
 /* Hidden gators (small thumbnails) */
 function renderHiddenGators(data) {
