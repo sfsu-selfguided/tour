@@ -17,6 +17,15 @@
         { "text": "Sign up for one of our guided tours", "url": "https://future.sfsu.edu/visit" }
       ]
     },
+    "hiddenGators": {
+  "title": "All done with your tour? 🐊",
+  "text": "Did you spot any of our hidden gators? There are three! (They’re small — keep an eye out 👀)",
+  "images": [
+    "assets/photos/gator-1.png",
+    "assets/photos/gator-2.png",
+    "assets/photos/gator-3.png"
+  ]
+},
     "map": {
       "url": "assets/maps/campus-map.pdf"
     }
