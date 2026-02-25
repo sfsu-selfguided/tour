@@ -109,7 +109,7 @@
           "subtitle": "Modern labs + project-based learning",
           "description": "Supports engineering and applied sciences with collaborative labs and modern research spaces designed for hands-on, project-based learning.",
           "address": "Science & Engineering Innovation Center, San Francisco State University",
-          "photo": "assets/photos/seic.png"
+          "photo": "assets/photos/science-innovation-center.png"
         },
         {
           "id": "hss",
@@ -118,7 +118,7 @@
           "subtitle": "Wellness + social impact careers",
           "description": "Houses programs like Public Health, Social Work, and other community-focused disciplines. Encourages interdisciplinary collaboration and prepares students for impact-driven careers.",
           "address": "Health & Social Sciences Building, San Francisco State University",
-          "photo": "assets/photos/hss.png"
+          "photo": "assets/photos/health-social-sciences.png"
         },
         {
           "id": "business",
@@ -127,7 +127,7 @@
           "subtitle": "Career readiness + FogCam",
           "description": "Supports majors like Finance, Marketing, Accounting, and Management with advising and career development resources. Inside is the SFSU FogCam — wave toward the windows and check it live at fogcam.org.",
           "address": "Lam Family College of Business, San Francisco State University",
-          "photo": "assets/photos/business.png"
+          "photo": "assets/photos/lam-family-business.png"
         },
         {
           "id": "administration-uac",
@@ -136,7 +136,7 @@
           "subtitle": "Academic planning + guidance",
           "description": "Houses university leadership offices and key administrative services. The Undergraduate Advising Center (UAC) supports general education planning and graduation advising.",
           "address": "Administration Building, San Francisco State University",
-          "photo": "assets/photos/administration.png"
+          "photo": "assets/photos/administration-building.png"
         },
         {
           "id": "library",
@@ -163,7 +163,7 @@
           "subtitle": "Student life hub + Bookstore",
           "description": "Central hub for student life with dining options, lounges, student organization offices, meeting rooms, and the Bookstore. Many campus events take place here.",
           "address": "Cesar Chavez Student Center, San Francisco State University",
-          "photo": "assets/photos/cesar-chavez.png"
+          "photo": "assets/photos/cesar-chavez-student-center.png"
         },
         {
           "id": "creative-arts",
@@ -199,7 +199,7 @@
           "subtitle": "Poetry Center + languages",
           "description": "Houses Liberal & Creative Arts departments including English, History, and Philosophy, plus the Poetry Center and American Language Institute.",
           "address": "Humanities Building, San Francisco State University",
-          "photo": "assets/photos/humanities.png"
+          "photo": "assets/photos/humanities-building.png"
         },
         {
           "id": "west-grove",
@@ -218,7 +218,7 @@
           "subtitle": "Dining for west campus communities",
           "description": "Yerba Buena Dining Hall serves students living in the west campus housing communities with diverse stations and flexible meal options.",
           "address": "Yerba Buena Dining Hall, San Francisco State University",
-          "photo": "assets/photos/yerba-buena.png"
+          "photo": "assets/photos/yerba-buena-dining.png"
         },
         {
           "id": "gator-health",
@@ -227,7 +227,7 @@
           "subtitle": "Student medical care + wellness",
           "description": "Provides medical care, lab services, X-rays, and wellness resources to enrolled students. Many services are covered through the student health fee.",
           "address": "Gator Health Center, San Francisco State University",
-          "photo": "assets/photos/gator-health.png"
+          "photo": "assets/photos/gator-health-center.png"
         },
         {
           "id": "monarca-city-eats",
@@ -236,7 +236,7 @@
           "subtitle": "All-you-care-to-eat",
           "description": "One of the primary dining facilities offering all-you-care-to-eat meals with multiple stations, rotating menus, and options for various dietary needs.",
           "address": "Monarca Dining Hall (City Eats), San Francisco State University",
-          "photo": "assets/photos/monarca.png"
+          "photo": "assets/photos/monarca-dining.png"
         },
         {
           "id": "mashouf",
@@ -245,7 +245,7 @@
           "subtitle": "Fitness + recreation",
           "description": "Comprehensive recreation and fitness facility with a climbing wall, indoor pool, track, weight rooms, and studios. Offers sports, group fitness, and wellness programming.",
           "address": "Mashouf Wellness Center, San Francisco State University",
-          "photo": "assets/photos/mashouf.png",
+          "photo": "assets/photos/mashouf-wellness.png",
           "navUrl": "https://maps.app.goo.gl/ovMS5iLWf5qL77Ui8?g_st=ic"
         }
       ]
@@ -266,7 +266,7 @@
 
         { "id": "thornton-hall", "order": 5, "title": "Thornton Hall", "subtitle": "Science & Engineering + Planetarium", "description": "Home to the College of Science & Engineering with lecture halls, labs, and the campus Planetarium. Students across STEM majors complete foundational coursework here.", "address": "Thornton Hall, San Francisco State University", "photo": "assets/photos/thornton-hall.png" },
 
-        { "id": "science-building", "order": 6, "title": "Science Building", "subtitle": "STEM learning + labs", "description": "Science Building stop (label placeholder). We can refine the name and description once you confirm which building you meant to include.", "address": "Science Building, San Francisco State University", "photo": "assets/photos/science-building.png" },
+        { "id": "science-building", "order": 6, "title": "Science Building", "subtitle": "STEM learning + labs", "description": "Previously the main Science Building at SFSU. Now it has been combined with the Science and Innovation Center. Some of the major lecture halls are located in this building.", "address": "Science Building, San Francisco State University", "photo": "assets/photos/science-building.png" },
 
         { "id": "hensill-hall", "order": 7, "title": "Hensill Hall", "subtitle": "Biology + life sciences", "description": "Houses Biology and life science programs with teaching and research labs supporting hands-on scientific learning. Popular for STEM and pre-health pathways.", "address": "Hensill Hall, San Francisco State University", "photo": "assets/photos/hensill-hall.png" },
 
