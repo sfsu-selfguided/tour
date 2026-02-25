@@ -164,14 +164,24 @@ a { color: inherit; }
 .mapLink__a {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 
-  /* NEW: make it look like a little pill button */
-  padding: 10px 14px;
+  padding: 12px 18px;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--secondaryBg);
+
   font-weight: 950;
+  text-decoration: none;
+  color: var(--primary);
+}
+
+/* Make it pop in dark mode */
+:root[data-theme="dark"] .mapLink__a {
+  background: rgba(75, 46, 131, 0.42);
+  border-color: rgba(246, 190, 0, 0.55);
+  color: #ffffff;
 }
 :root[data-theme="dark"] .mapLink__a {
   background: rgba(246, 190, 0, 0.14);
@@ -632,7 +642,12 @@ a { color: inherit; }
 .gators { padding: 14px; }
 .gators__title { margin: 0; font-size: 18px; font-weight: 950; }
 .gators__text { margin: 8px 0 12px; color: var(--muted); line-height: 1.35; }
-.gators__strip { display: flex; gap: 10px; flex-wrap: wrap; }
+.gators__strip {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center; /* centers thumbnails */
+}
 .gators__thumb {
   width: 86px;
   height: 66px;
