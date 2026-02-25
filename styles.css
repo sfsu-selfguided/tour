@@ -140,7 +140,7 @@ a { color: inherit; }
  align-items: center;
  justify-content: center;
  gap: 12px;
- flex-wrap: wrap; /* lets it drop to next line on small screens */
+ flex-wrap: wrap;   /* ← THIS is the magic */
 }
 .tourPicker {
  display: flex;
