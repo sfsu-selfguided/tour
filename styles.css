@@ -180,6 +180,7 @@ a { color: inherit; }
   background: transparent;
   color: inherit;
   font-weight: 850;
+  font-size: 18px;   /* Match your map button */
 }
 
 .mapLink {
