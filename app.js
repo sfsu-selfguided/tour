@@ -246,16 +246,13 @@ let activeTour = tours.find((t) => t.id === savedTourId) || tours[0];
 
 function getTourLabel(t) {
   const id = (t?.id || "").toLowerCase();
-  const name = (t?.name || "").toLowerCase();
 
-  const isWithHousing =
-    id === "full" ||
-    id.includes("with") ||
-    id.includes("housing") ||
-    name.includes("with housing") ||
-    name.includes("includes housing");
+  // ✅ exact ids only (no substring guessing)
+  if (id === "with-housing") return "With Housing";
+  if (id === "without-housing") return "Without Housing";
 
-  return isWithHousing ? "With Housing" : "Without Housing";
+  // fallback (just in case)
+  return t?.name || t?.id || "Tour";
 }
 
 if (tourSelect) {
