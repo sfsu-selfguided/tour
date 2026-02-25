@@ -306,9 +306,9 @@ if (tourSelect) {
           $("#hideVisitedToggle")?.checked,
         query: $("#searchInput")?.value,
       });
-
-      renderHiddenGators(data);
-      renderNextSteps(data);
+renderHiddenGators(data);
+renderThanksBlurb(data);
+renderNextSteps(data);
 
       const mapWrap = $("#mapLinkWrap");
       const mapLink = $("#campusMapLink");
