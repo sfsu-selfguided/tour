@@ -12,28 +12,21 @@ function getSystemTheme() {
     window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
-}
 function renderThanksBlurb(data) {
-  const mount = $("#hiddenGators");
+  const mount = $("#thanksBlurb");
   if (!mount) return;
 
   const tb = data?.pageSections?.thanksBlurb;
-  if (!tb) return;
+  if (!tb) { mount.innerHTML = ""; return; }
 
-  // Append under the gators card
-  const card = mount.querySelector(".card");
-  if (!card) return;
-
-  const body = card.querySelector(".card__body");
-  if (!body) return;
-
-  body.insertAdjacentHTML(
-    "beforeend",
-    `
-      <p class="gators__thanksTitle">${tb.title || ""}</p>
-      <p class="gators__thanksText">${tb.text || ""}</p>
-    `
-  );
+  mount.innerHTML = `
+    <div class="card">
+      <div class="card__body">
+        <h2 class="card__title">${tb.title}</h2>
+        <p class="card__desc" style="margin-top:8px; color: var(--muted);">${tb.text}</p>
+      </div>
+    </div>
+  `;
 }
 
 function applyTheme(theme) {
