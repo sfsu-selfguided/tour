@@ -241,27 +241,41 @@ async function main() {
     const tours = getToursFromData(data);
     const tourSelect = $("#tourSelect");
 
-    let activeTour = tours[0];
+   const savedTourId = localStorage.getItem(STORAGE_KEYS.activeTour);
+let activeTour = tours.find((t) => t.id === savedTourId) || tours[0];
 
-    if (tourSelect) {
-      tourSelect.innerHTML = "";
-      for (const t of tours) {
-        const opt = document.createElement("option");
-        opt.value = t.id;
-        opt.textContent =
-          t.id === "full"
-            ? "With Housing"
-            : "Without Housing";
-        tourSelect.appendChild(opt);
-      }
+function getTourLabel(t) {
+  const id = (t?.id || "").toLowerCase();
+  const name = (t?.name || "").toLowerCase();
 
-      tourSelect.addEventListener("change", () => {
-        activeTour = tours.find(
-          (t) => t.id === tourSelect.value
-        );
-        updateForTour(activeTour);
-      });
-    }
+  const isWithHousing =
+    id === "full" ||
+    id.includes("with") ||
+    id.includes("housing") ||
+    name.includes("with housing") ||
+    name.includes("includes housing");
+
+  return isWithHousing ? "With Housing" : "Without Housing";
+}
+
+if (tourSelect) {
+  tourSelect.innerHTML = "";
+
+  for (const t of tours) {
+    const opt = document.createElement("option");
+    opt.value = t.id;
+    opt.textContent = getTourLabel(t);
+    if (t.id === activeTour.id) opt.selected = true;
+    tourSelect.appendChild(opt);
+  }
+
+  tourSelect.addEventListener("change", () => {
+    const next = tours.find((t) => t.id === tourSelect.value) || tours[0];
+    activeTour = next;
+    localStorage.setItem(STORAGE_KEYS.activeTour, activeTour.id);
+    updateForTour(activeTour);
+  });
+}
 
     function updateForTour(tour) {
       setHeaderFromTour(tour);
