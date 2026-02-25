@@ -290,7 +290,7 @@
 
         { "id": "marcus-hall", "order": 17, "title": "Marcus Hall", "subtitle": "BECA media production", "description": "Houses Broadcast and Electronic Communication Arts (BECA). Students gain hands-on experience in media production, broadcasting, and digital storytelling using pro-grade studios and labs.", "address": "Marcus Hall, San Francisco State University", "photo": "assets/photos/marcus-hall.png" },
 
-        { "id": "humanities", "order": 18, "title": "Humanities Building", "subtitle": "Poetry Center + languages", "description": "Houses Liberal & Creative Arts departments including English, History, and Philosophy, plus the Poetry Center and American Language Institute.", "address": "Humanities Building, San Francisco State University", "photo": "assets/photos/humanities.png" },
+        { "id": "humanities", "order": 18, "title": "Humanities Building", "subtitle": "Poetry Center + languages", "description": "Houses Liberal & Creative Arts departments including English, History, and Philosophy, plus the Poetry Center and American Language Institute.", "address": "Humanities Building, San Francisco State University", "photo": "assets/photos/humanities-building.png" },
 
         { "id": "west-grove", "order": 19, "title": "West Grove Commons", "subtitle": "West campus residential community", "description": "West Grove Commons includes residential and dining spaces serving students living in the west campus housing community. It provides convenient access to food options and gathering spaces.", "address": "West Grove Commons, San Francisco State University", "photo": "assets/photos/west-grove.png", "navUrl": "https://maps.app.goo.gl/WNrZy3ytAiFjmfwK7?g_st=ic" },
 
