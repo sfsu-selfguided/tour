@@ -135,7 +135,24 @@ a { color: inherit; }
   font-size: 15px;
   line-height: 1.45;
 }
-
+.tourRow {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 12px;
+ flex-wrap: wrap; /* lets it drop to next line on small screens */
+}
+.tourPicker {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ flex-wrap: nowrap;
+}
+/* remove the extra vertical spacing since it's now inline */
+.mapLink {
+ margin-top: 0;
+ margin-bottom: 0;
+}
 .hero__cta--stack {
   display: flex;
   flex-direction: column;
