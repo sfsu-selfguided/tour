@@ -129,11 +129,11 @@ a { color: inherit; }
 .hero__cta--stack {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  align-items: flex-start;
+  gap: 6px;
+  align-items: flex-start; /* ✅ left aligned */
   width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
+  max-width: 760px;        /* aligns with your hero text */
+  margin: 0 auto;          /* keeps the block centered on the page */
 }
 
 .tourPicker {
