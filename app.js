@@ -95,10 +95,13 @@ function normalize(str) {
 /* Navigation URL */
 function buildStopNavUrl(stop) {
   if (stop?.navUrl) return stop.navUrl;
-  const q = encodeURIComponent(
+
+  const destination = encodeURIComponent(
     stop.address || stop.title || "San Francisco State University"
   );
-  return `https://www.google.com/maps/search/?api=1&query=${q}`;
+
+  // Walking directions (works well on iPhone / Google Maps)
+  return `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=walking`;
 }
 
 /* Hidden Gators */
