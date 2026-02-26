@@ -201,16 +201,7 @@
           "address": "Humanities Building, San Francisco State University",
           "photo": "assets/photos/humanities-building.png"
         },
-        {
-          "id": "west-grove",
-          "order": 19,
-          "title": "West Grove Commons",
-          "subtitle": "West campus residential community",
-          "description": "West Grove Commons includes residential and dining spaces serving students living in the west campus housing community. It provides convenient access to food options and gathering spaces.",
-          "address": "West Grove Commons, San Francisco State University",
-          "photo": "assets/photos/west-grove.png",
-          "navUrl": "https://maps.app.goo.gl/WNrZy3ytAiFjmfwK7?g_st=ic"
-        },
+      
         {
           "id": "yerba-buena",
           "order": 20,
