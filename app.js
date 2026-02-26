@@ -295,7 +295,34 @@ if (tourSelect) {
     updateForTour(activeTour);
   });
 }
+    // --- Controls wiring (Search / Hide visited / Reset) ---
+    const searchInput = $("#searchInput");
+    const hideVisitedToggle = $("#hideVisitedToggle");
+    const resetVisitedBtn = $("#resetVisitedBtn");
+    const reloadBtn = $("#reloadBtn");
 
+    if (searchInput) {
+      searchInput.addEventListener("input", () => updateForTour(activeTour));
+    }
+
+    if (hideVisitedToggle) {
+      hideVisitedToggle.addEventListener("change", () => updateForTour(activeTour));
+    }
+
+    if (resetVisitedBtn) {
+      resetVisitedBtn.addEventListener("click", () => {
+        visitedSet.clear();
+        saveVisitedSet(visitedSet);
+        updateForTour(activeTour);
+      });
+    }
+
+    if (reloadBtn) {
+      reloadBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        location.reload();
+      });
+    }
     function updateForTour(tour) {
       setHeaderFromTour(tour);
 
